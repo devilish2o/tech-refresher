@@ -27,3 +27,9 @@ Update this file after each session. Keep entries brief and record concrete evid
 - [ ] Linux and Windows diagnostics
 - [ ] Networking, TLS and security
 - [ ] MATLAB refresh
+## Delivered lessons (completion not yet confirmed)
+
+| Lesson | Domain / topic | Delivery status |
+|---:|---|---|
+| 001 | Maven WAR packaging | Delivered; user has not reported completion |
+| 002 | Jenkins Freestyle versus Declarative Pipeline | Delivered; user has not reported completion |
