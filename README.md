@@ -13,6 +13,10 @@ A practical, rolling refresher for an experienced DevOps / infrastructure engine
 
 Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform; Docker; Kubernetes; Control-M; Axway SecureTransport / managed file transfer; Linux; Windows and PowerShell; networking; security; MATLAB; Git; observability and troubleshooting.
 
+## Lessons
+
+- [Lesson 002 — Jenkins Freestyle versus Declarative Pipeline](lessons/lesson-002-jenkins-freestyle-vs-pipeline.md) — map a Maven WAR build to both job models.
+
 ## Repository map
 
 - [Learning path](curriculum/learning-path.md) — recommended sequence and outcomes.
