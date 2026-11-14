@@ -15,7 +15,9 @@ Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform;
 
 ## Lessons
 
-- [Lesson 002 — Jenkins Freestyle versus Declarative Pipeline](lessons/lesson-002-jenkins-freestyle-vs-pipeline.md) — map a Maven WAR build to both job models.
+- [Lesson 001 — Build a Java WAR with Maven](lessons/lesson-001-maven-war.md) — install/check the JDK and Maven, create a correctly structured project, build and inspect the WAR.
+- [Lesson 002 — Jenkins Freestyle versus Declarative Pipeline](lessons/lesson-002-jenkins-freestyle-vs-pipeline.md) — map the Maven WAR build to both job models and place the Jenkinsfile correctly.
+- [Lesson 003 — Diagnose a Linux systemd service safely](lessons/lesson-003-linux-systemd-diagnostics.md) — validate a unit offline and practise read-only service/journal diagnostics.
 
 ## Repository map
 
