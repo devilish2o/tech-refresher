@@ -47,7 +47,7 @@ The final command should show the lesson directory under your home folder. This 
 Create a harmless page for the local HTTP server:
 
 \`\`\`bash
-printf '%s\\n' '<html><body>Disposable health-check lab</body></html>' > www/index.html
+printf '%s\n' '<html><body>Disposable health-check lab</body></html>' > www/index.html
 cat www/index.html
 \`\`\`
 
@@ -266,10 +266,10 @@ Expected:
 Port 8766 should not have a listener. Test it with two attempts and a short delay:
 
 \`\`\`bash
-python3 healthcheck.py \\
-  --url http://127.0.0.1:8766/ \\
-  --attempts 2 \\
-  --timeout 1 \\
+python3 healthcheck.py \
+  --url http://127.0.0.1:8766/ \
+  --attempts 2 \
+  --timeout 1 \
   --delay 0.2
 echo "exit=$?"
 \`\`\`
