@@ -17,6 +17,137 @@ Run the same Maven WAR build in two Jenkins job models:
 
 Compare maintainability, reviewability and operational controls. This lesson builds and archives the WAR; it does not deploy to an application server.
 
+## 0. Install a disposable Jenkins controller on PEACEKEEPER
+
+For this lesson, use a **standalone Jenkins LTS WAR**, not an APT-installed system service or Docker container. It runs in your user session, stores all Jenkins data under one lab directory, listens only on your own computer, and can be stopped and removed without changing system services.
+
+This lab uses PEACEKEEPER as both:
+- the **controller** (the Jenkins web application); and
+- the **built-in node** (the machine that executes this small test build).
+
+That single-machine arrangement is acceptable for a disposable learning lab. In production, keep build executors off the controller and use separate, managed agents.
+
+### 0.1 Check prerequisites
+
+Open a PEACEKEEPER terminal (Bash):
+
+```bash
+java -version
+javac -version
+mvn -version
+git --version
+command -v curl
+command -v sha256sum
+```
+
+Use Java 21, Maven 3.9.x and Git. If Maven or Git is missing, install only the missing package:
+
+```bash
+sudo apt update
+sudo apt install -y maven git curl
+```
+
+Do not reinstall Java if your existing OpenJDK 21 installation is working. Re-run the version checks after installing anything.
+
+### 0.2 Download and verify Jenkins LTS
+
+Create a dedicated directory. The WAR file and Jenkins configuration will remain separate from your Maven project:
+
+```bash
+mkdir -p ~/labs/jenkins-lab/home
+cd ~/labs/jenkins-lab
+```
+
+Download Jenkins **2.580.2 LTS**:
+
+```bash
+curl -fL https://get.jenkins.io/war-stable/2.580.2/jenkins.war -o ~/labs/jenkins-lab/jenkins.war
+```
+
+Verify the download against the SHA-256 published by Jenkins:
+
+```bash
+echo 'd98032d2401c540a35613a82ed358921fcf3166d5e6eaaaf60a7941845be3251  jenkins.war' | sha256sum -c -
+```
+
+Expected output:
+
+```text
+jenkins.war: OK
+```
+
+If verification fails, do not run the file. Delete it and download it again.
+
+### 0.3 Start Jenkins locally
+
+First check that port 8085 is free:
+
+```bash
+if ss -ltnH 'sport = :8085' | grep -q .; then
+  echo "Port 8085 is already in use; stop and investigate before continuing."
+else
+  echo "Port 8085 is available."
+fi
+```
+
+If it is available, start Jenkins with this command:
+
+```bash
+JENKINS_HOME="$HOME/labs/jenkins-lab/home" \
+  java -jar "$HOME/labs/jenkins-lab/jenkins.war" \
+  --httpPort=8085 \
+  --httpListenAddress=127.0.0.1
+```
+
+Keep this terminal open while using Jenkins. The process runs in the foreground. The loopback address means the web interface is available only from PEACEKEEPER itself; it is not exposed to your LAN or the internet.
+
+Wait for Jenkins to finish starting, then open Firefox on PEACEKEEPER and visit:
+
+`http://127.0.0.1:8085`
+
+### 0.4 Complete the first-run wizard
+
+1. On the **Unlock Jenkins** page, open a second terminal and run:
+
+   ```bash
+   cat ~/labs/jenkins-lab/home/secrets/initialAdminPassword
+   ```
+
+2. Copy the displayed password into the browser.
+3. Select **Install suggested plugins**. This should install the common Pipeline and Git functionality needed for the exercises.
+4. Wait for plugin installation to finish.
+5. Create a local Jenkins administrator account. Use a unique lab password; do not reuse a system or online-account password.
+6. Select **Save and Finish**, then **Start using Jenkins**.
+7. Confirm the Jenkins dashboard appears.
+
+If a required plugin is missing later, install it only in this disposable instance through **Manage Jenkins → Plugins**.
+
+### 0.5 Allow this lab's built-in node to run the build
+
+Jenkins normally has a built-in node associated with the controller. For this single-machine lab, we will deliberately let that node run one build at a time:
+
+1. Open **Manage Jenkins → Nodes**.
+2. Select **Built-In Node**.
+3. Select **Configure**.
+4. Set **Number of executors** to `1`.
+5. Save.
+
+The Jenkins process was started from your PEACEKEEPER terminal as your normal user, so the built-in node can use that user's installed Java, Maven and Git. Verify those commands in Section 1.3. Do not run Jenkins with `sudo`.
+
+**Important:** this controller/built-in-node arrangement is only for the local disposable lab. Do not copy this executor configuration to a production Jenkins controller.
+
+### 0.6 Stop and remove the disposable instance
+
+When finished, return to the terminal running Jenkins and press **Ctrl+C**. This stops the Jenkins process; it does not uninstall Java, Maven or Git.
+
+To remove the Jenkins controller configuration, jobs, users and installed plugins after you no longer need them:
+
+```bash
+rm -rf ~/labs/jenkins-lab
+```
+
+That command permanently deletes only the dedicated lab directory. Do not run it if you want to keep your Jenkins jobs for the next lesson.
+
 ## 1. Prerequisites
 
 ### 1.1 Maven project from Lesson 001
@@ -35,7 +166,7 @@ The directory containing `pom.xml` is the **project root**. You will create the 
 
 ### 1.2 Disposable Jenkins controller
 
-You need access to a non-production Jenkins LTS controller. Required plugins:
+For this lesson, use the local disposable controller you started in Section 0. Its suggested plugin installation should include the Pipeline functionality. Required plugins:
 
 - **Pipeline**
 - **Pipeline: Declarative**
@@ -46,7 +177,7 @@ Do not install or modify plugins on a production controller for this exercise.
 
 ### 1.3 Jenkins build agent
 
-The controller schedules work; the **agent** is the machine/process that checks out your project and runs Maven. The agent selected for this job needs:
+The **agent** is the machine/process that checks out your project and runs Maven. In this PEACEKEEPER lab, the built-in node on the same machine as the controller is the agent. It needs:
 
 - JDK 21 or newer (`java` and `javac`);
 - Maven 3.9.x (`mvn`) on PATH;
@@ -62,13 +193,13 @@ mvn -version
 git --version
 ```
 
-If the controller and agent are separate machines, installing Java/Maven on the controller does not install them on the agent. Verify the agent itself. Maven's version output shows which Java runtime Maven is using.
+For this local lab, verify the commands in the same PEACEKEEPER environment from which you started Jenkins. In a distributed Jenkins setup, install and verify Java/Maven on each actual agent; installing them on the controller does not install them on an agent. Maven's version output shows which Java runtime Maven is using.
 
 Windows agents run Windows batch commands using Jenkins' `bat` step. Linux/Unix agents run shell commands using `sh`. The Jenkinsfile below detects the agent OS.
 
 ### 1.4 Git source repository
 
-For the SCM-based Pipeline option and a realistic Freestyle checkout, the project must be committed to a Git repository that the test Jenkins controller can access.
+For the Pipeline-as-Code option and a realistic SCM checkout, the project must be committed to a Git repository that the test Jenkins controller can access. The first Freestyle exercise deliberately uses a local workspace copy so you can run it before configuring a Git remote.
 
 If you do not have a Git remote ready, you can still create and review the Jenkinsfile locally. You can paste its contents into a Pipeline job for a quick test, but that stores the script in Jenkins job configuration rather than loading the file from source control.
 
@@ -148,21 +279,43 @@ Freestyle remains useful for straightforward or legacy jobs. Pipeline-as-Code is
 
 ## 4. Exercise A — configure a Freestyle job
 
-On your disposable Jenkins controller:
+Use the local Jenkins dashboard at `http://127.0.0.1:8085`. Because your Maven project is currently a local directory and may not yet have a Git remote, this first run uses a simple local-workspace copy. It lets you practise the Freestyle configuration without pretending that a Git checkout has happened.
 
-1. From the dashboard, select **New Item**.
-2. Name the job `war-refresher-freestyle`.
+1. Select **New Item**.
+2. Enter `war-refresher-freestyle`.
 3. Select **Freestyle project**, then **OK**.
-4. Under **Source Code Management**, select **Git** and enter the URL of your test repository containing the Maven project. If it is private, select a Jenkins credential; never paste a token into the URL.
-5. Under **Build Steps**, choose the command type matching the agent:
-   - Linux/Unix: **Execute shell** with `mvn -B -ntp clean verify`.
-   - Windows: **Execute Windows batch command** with `mvn -B -ntp clean verify`.
+4. Under **Source Code Management**, select **None** for this first local run.
+5. Under **Build Steps**, select **Execute shell** and paste this complete script:
+
+   ```bash
+   set -eu
+   PROJECT="$HOME/labs/war-refresher"
+
+   test -f "$PROJECT/pom.xml"
+   mkdir -p "$WORKSPACE"
+   cp "$PROJECT/pom.xml" "$WORKSPACE/"
+   rm -rf "$WORKSPACE/src"
+   cp -a "$PROJECT/src" "$WORKSPACE/"
+
+   cd "$WORKSPACE"
+   java -version
+   mvn -version
+   mvn -B -ntp clean verify
+   ```
+
+   This copies only the Maven project definition and source tree into the Jenkins job's own workspace. Maven builds there, not in your original Lesson 001 directory.
 6. Under **Post-build Actions**, add **Archive the artifacts** with pattern `target/*.war`.
-7. Save and select **Build Now**.
+7. Save, then select **Build Now**.
+8. Open the build number and select **Console Output**. Confirm Maven reports `BUILD SUCCESS`.
+9. Return to the build page and confirm that `war-refresher-1.0.0.war` is listed under **Build Artifacts**.
+
+If your Lesson 001 project is in a different directory, change only the `PROJECT=` line to its actual path. If the build fails, check that the source directory contains `pom.xml` and `src/`, and that Maven is available to the user running Jenkins.
+
+**Why Source Code Management is set to None here:** this is a first local exercise to learn the Freestyle job UI. It is not yet a source-controlled CI build. Once the project is pushed to a Git repository, you can change SCM to **Git**, enter that repository URL and use the normal checkout workflow. Never put a Git token or password in the repository URL.
 
 Optional: if your project has automated tests that produce Surefire XML reports, configure the JUnit publisher with `**/target/surefire-reports/*.xml`. The sample project has no test classes, so do not expect reports unless you add tests.
 
-If Jenkins is unavailable, write down this configuration mapping. Do not experiment on a production/shared controller.
+Do not experiment on a production/shared controller.
 
 ## 5. Exercise B — create the Declarative Jenkinsfile
 
@@ -318,7 +471,7 @@ Do not mark the lesson complete until you have attempted the exercise. If Jenkin
 
 ## Official documentation
 
-- [Jenkins — Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
+- [Jenkins — WAR file installation (run, unlock and configure)](https://www.jenkins.io/doc/book/installing/war-file/)\n- [Jenkins — Download and deploy (LTS releases and checksums)](https://www.jenkins.io/download/)\n- [Jenkins — Java support policy](https://www.jenkins.io/doc/book/platform-information/support-policy-java/)\n- [Jenkins — Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
 - [Jenkins — Managing Plugins](https://www.jenkins.io/doc/book/managing/plugins/)
 - [Jenkins — Pipeline](https://www.jenkins.io/doc/book/pipeline/)
 - [Jenkins — Using a Jenkinsfile](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/)
