@@ -4,7 +4,7 @@
 **Duration:** 30 minutes, excluding one-time software installation  
 **Level:** Experienced engineer refresher  
 **Environment:** Windows 11 PowerShell or Debian/Ubuntu Linux  
-**Version assumptions:** JDK 17+, Maven 3.9.x, Jakarta Servlet API 6.0.0, Maven Compiler Plugin 3.14.1, Maven WAR Plugin 3.5.1.
+**Version assumptions:** JDK 21+, Maven 3.9.x, Jakarta Servlet API 6.0.0, Maven Compiler Plugin 3.14.1, Maven WAR Plugin 3.5.1.
 
 > This guide is self-contained: it tells you what to install, where to create each file, which directory to run commands from, and what success looks like. If Java and Maven are already installed, verify them and skip the installation steps.
 
@@ -27,12 +27,12 @@ javac -version
 
 Both commands should return version information. The JDK supplies `javac`; if it is missing, install a JDK or correct your PATH.
 
-- **Windows:** Download the Temurin 17 JDK MSI from [Eclipse Temurin](https://adoptium.net/temurin/releases/?version=17). Choose Windows x64, JDK, MSI. During setup, enable the options to add Java to PATH and set JAVA_HOME if offered. Close and reopen PowerShell.
+- **Windows:** Download the Temurin 21 JDK MSI from [Eclipse Temurin](https://adoptium.net/temurin/releases/?version=21). Choose Windows x64, JDK, MSI. During setup, enable the options to add Java to PATH and set JAVA_HOME if offered. Close and reopen PowerShell.
 - **Debian/Ubuntu:**
 
 ```bash
 sudo apt update
-sudo apt install -y openjdk-17-jdk
+sudo apt install -y openjdk-21-jdk
 java -version
 javac -version
 ```
@@ -143,7 +143,7 @@ Paste this complete file:
   <version>1.0.0</version>
   <packaging>war</packaging>
   <properties>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
@@ -326,7 +326,7 @@ Report the Java and Maven versions, build result, WAR file size, first 12–16 c
 
 ## Official documentation
 
-- [Eclipse Temurin JDK 17 downloads](https://adoptium.net/temurin/releases/?version=17)
+- [Eclipse Temurin JDK 21 downloads](https://adoptium.net/temurin/releases/?version=21)
 - [Apache Maven — Installing Maven](https://maven.apache.org/install.html)
 - [Apache Maven — Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 - [Apache Maven WAR Plugin — Usage](https://maven.apache.org/plugins/maven-war-plugin/usage.html)
