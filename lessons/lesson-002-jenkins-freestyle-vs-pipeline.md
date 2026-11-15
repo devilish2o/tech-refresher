@@ -331,6 +331,20 @@ pipeline {
     }
 
     stages {
+        stage('Prepare source') {
+            steps {
+                script {
+                    if (!fileExists('pom.xml')) {
+                        if (isUnix()) {
+                            sh 'cp -a "$HOME/labs/war-refresher/." .'
+                        } else {
+                            bat 'xcopy /E /I /Y "%USERPROFILE%\\labs\\war-refresher\\*" .'
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Check toolchain') {
             steps {
                 script {
@@ -423,15 +437,17 @@ If the file were in a subdirectory, Script Path would need that relative path. F
 
 ### Expected result
 
-The build should show three stages:
+The build should show four stages:
 
-1. Check toolchain
-2. Build and verify WAR
-3. Archive WAR
+1. Prepare source
+2. Check toolchain
+3. Build and verify WAR
+4. Archive WAR
 
 The console output should include Maven's `BUILD SUCCESS`. The Jenkins build page should show an archived artifact similar to `war-refresher-1.0.0.war`.
 
 Troubleshooting:
+- **Prepare source fails:** check that the Lesson 001 project exists at `~/labs/war-refresher` on PEACEKEEPER (or update the path in the Jenkinsfile for another machine).
 - **Toolchain stage fails:** check Java and Maven on the agent, not just the controller.
 - **Checkout fails:** check repository URL, branch and Jenkins credential selection.
 - **No artifacts match:** confirm Maven succeeded and the workspace contains `target/*.war`.
