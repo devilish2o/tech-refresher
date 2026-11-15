@@ -471,7 +471,10 @@ Do not mark the lesson complete until you have attempted the exercise. If Jenkin
 
 ## Official documentation
 
-- [Jenkins — WAR file installation (run, unlock and configure)](https://www.jenkins.io/doc/book/installing/war-file/)\n- [Jenkins — Download and deploy (LTS releases and checksums)](https://www.jenkins.io/download/)\n- [Jenkins — Java support policy](https://www.jenkins.io/doc/book/platform-information/support-policy-java/)\n- [Jenkins — Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
+- [Jenkins — WAR file installation (run, unlock and configure)](https://www.jenkins.io/doc/book/installing/war-file/)
+- [Jenkins — Download and deploy (LTS releases and checksums)](https://www.jenkins.io/download/)
+- [Jenkins — Java support policy](https://www.jenkins.io/doc/book/platform-information/support-policy-java/)
+- [Jenkins — Installing Jenkins](https://www.jenkins.io/doc/book/installing/)
 - [Jenkins — Managing Plugins](https://www.jenkins.io/doc/book/managing/plugins/)
 - [Jenkins — Pipeline](https://www.jenkins.io/doc/book/pipeline/)
 - [Jenkins — Using a Jenkinsfile](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/)
