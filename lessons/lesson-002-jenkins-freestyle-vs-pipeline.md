@@ -4,7 +4,7 @@
 **Duration:** 30 minutes, excluding one-time setup  
 **Level:** Experienced engineer refresher  
 **Environment:** A disposable Jenkins LTS controller and a build agent; Windows and Linux agents are covered  
-**Version assumptions:** A supported Jenkins LTS release with the Pipeline and Pipeline: Declarative plugins. The build agent has JDK 17+ and Maven 3.9.x on PATH.
+**Version assumptions:** A supported Jenkins LTS release with the Pipeline and Pipeline: Declarative plugins. The build agent has JDK 21+ and Maven 3.9.x on PATH.
 
 > This lesson continues from Lesson 001. You need the `war-refresher` Maven project and a successful local `mvn -B -ntp clean verify` build. If you have not finished Lesson 001, first create and verify that project. Use a disposable Jenkins instance only; do not change a production or shared controller.
 
@@ -48,7 +48,7 @@ Do not install or modify plugins on a production controller for this exercise.
 
 The controller schedules work; the **agent** is the machine/process that checks out your project and runs Maven. The agent selected for this job needs:
 
-- JDK 17 or newer (`java` and `javac`);
+- JDK 21 or newer (`java` and `javac`);
 - Maven 3.9.x (`mvn`) on PATH;
 - Git (`git`) if Jenkins will check out the source from a Git repository;
 - network access to Maven repositories for first-time dependency downloads.
