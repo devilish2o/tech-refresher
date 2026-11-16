@@ -10,7 +10,8 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 001: completed (user-reported).
 - Lesson 002: completed (user-reported, 2026-11-15).
 - Lesson 003: completed (user-reported, 2026-11-15).
-- Lesson 004: delivered (2026-11-15); completion checkpoint pending.
+- Lesson 004: completed (user-reported).
+- Lesson 005: delivered (2026-11-16); completion checkpoint pending.
 
 ## Completed sessions
 
@@ -19,6 +20,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 2026-11-14 | Lesson 001 — Maven WAR packaging | User reported lesson completed | — | Continue curriculum |
 | 2026-11-15 | Lesson 002 — Jenkins Freestyle versus Declarative Pipeline | User reported lesson completed | — | Continue curriculum |
 | 2026-11-15 | Lesson 003 — Linux systemd service diagnostics | User reported lesson completed | — | Continue curriculum |
+| 2026-11-16 | Lesson 004 — Python HTTP health checker | User reported lesson completed | — | Continue curriculum |
 
 ## Topics to revisit
 
@@ -41,4 +43,5 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 001 | Maven WAR packaging | Completed (user-reported) |
 | 002 | Jenkins Freestyle versus Declarative Pipeline | Completed (user-reported, 2026-11-15) |
 | 003 | Linux systemd service diagnostics | Completed (user-reported, 2026-11-15) |
-| 004 | Python HTTP health checker | Delivered (2026-11-15); awaiting completion report |
+| 004 | Python HTTP health checker | Completed (user-reported) |
+| 005 | Terraform saved plans and local state safety | Delivered (2026-11-16); awaiting completion report |
