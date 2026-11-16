@@ -24,21 +24,21 @@ The operational point: **a retry is a policy, not a reflex**. Repeating a 404 wi
 
 Open a terminal on PEACEKEEPER and run:
 
-\`\`\`bash
+```bash
 python3 --version
 command -v python3
 command -v vim
-\`\`\`
+```
 
 Expected: Python 3.11+ and executable paths for Python and Vim. No extra packages are needed.
 
 Create the lab directories:
 
-\`\`\`bash
+```bash
 mkdir -p ~/labs/tech-refresher/lesson-004-python-healthcheck/www
 cd ~/labs/tech-refresher/lesson-004-python-healthcheck
 pwd
-\`\`\`
+```
 
 The final command should show the lesson directory under your home folder. This is a disposable directory; nothing is installed as a service and no system configuration is changed.
 
@@ -46,16 +46,16 @@ The final command should show the lesson directory under your home folder. This 
 
 Create a harmless page for the local HTTP server:
 
-\`\`\`bash
+```bash
 printf '%s\n' '<html><body>Disposable health-check lab</body></html>' > www/index.html
 cat www/index.html
-\`\`\`
+```
 
 Keep this terminal open. Start the test server, bound to loopback only:
 
-\`\`\`bash
+```bash
 python3 -m http.server 8765 --bind 127.0.0.1 --directory "$HOME/labs/tech-refresher/lesson-004-python-healthcheck/www"
-\`\`\`
+```
 
 Expected: a message that the server is serving on 127.0.0.1 port 8765.
 
@@ -63,21 +63,21 @@ This server is deliberately simple. Its root path returns HTTP 200, while a path
 
 Open a **second terminal** for the remaining steps. Enter the lab directory:
 
-\`\`\`bash
+```bash
 cd ~/labs/tech-refresher/lesson-004-python-healthcheck
-\`\`\`
+```
 
 ## 3. Create the health-check script (11 minutes)
 
 Create the file:
 
-\`\`\`bash
+```bash
 vim healthcheck.py
-\`\`\`
+```
 
 Paste this complete script:
 
-\`\`\`python
+```python
 #!/usr/bin/env python3
 import argparse
 import json
@@ -212,16 +212,16 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-\`\`\`
+```
 
 Save and quit Vim with :wq.
 
 Make it executable and run Python's syntax check:
 
-\`\`\`bash
+```bash
 chmod 750 healthcheck.py
 python3 -m py_compile healthcheck.py
-\`\`\`
+```
 
 Expected: no output from py_compile and exit code 0. It creates a local __pycache__ directory; that is normal.
 
@@ -240,10 +240,10 @@ Expected: no output from py_compile and exit code 0. It creates a local __pycach
 
 First, test the local root endpoint:
 
-\`\`\`bash
+```bash
 python3 healthcheck.py --url http://127.0.0.1:8765/
 echo "exit=$?"
-\`\`\`
+```
 
 Expected:
 - JSON contains "ok": true, "status": 200 and "attempts": 1.
@@ -251,10 +251,10 @@ Expected:
 
 Now test a path that does not exist:
 
-\`\`\`bash
+```bash
 python3 healthcheck.py --url http://127.0.0.1:8765/not-found
 echo "exit=$?"
-\`\`\`
+```
 
 Expected:
 - JSON contains "ok": false, "status": 404, "attempts": 1 and "error": "HTTP 404".
@@ -265,14 +265,14 @@ Expected:
 
 Port 8766 should not have a listener. Test it with two attempts and a short delay:
 
-\`\`\`bash
+```bash
 python3 healthcheck.py \
   --url http://127.0.0.1:8766/ \
   --attempts 2 \
   --timeout 1 \
   --delay 0.2
 echo "exit=$?"
-\`\`\`
+```
 
 Expected:
 - A warning for attempt 1, followed by a retry after 0.2 seconds.
