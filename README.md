@@ -19,6 +19,7 @@ Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform;
 - [Lesson 002 — Jenkins Freestyle versus Declarative Pipeline](lessons/lesson-002-jenkins-freestyle-vs-pipeline.md) — map the Maven WAR build to both job models and place the Jenkinsfile correctly.
 - [Lesson 003 — Diagnose a Linux systemd service safely](lessons/lesson-003-linux-systemd-diagnostics.md) — validate a unit offline and practise read-only service/journal diagnostics.
 - [Lesson 004 — Build a resilient Python HTTP health checker](lessons/lesson-004-python-http-healthcheck.md) — practise bounded retries, timeouts, structured output and automation-friendly exit codes.
+- [Lesson 005 — Terraform plan and state safety](lessons/lesson-005-terraform-plan-state.md) — use the built-in `terraform_data` resource to review a saved plan, apply it, inspect local state, recognise replacement and clean up without cloud credentials.
 
 ## Repository map
 
