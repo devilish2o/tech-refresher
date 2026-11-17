@@ -2,7 +2,7 @@
 
 **Domain:** Docker / container build and runtime security  
 **Duration:** 30 minutes  
-**Environment:** RANGER, Windows 11 PowerShell, using the existing Docker Desktop installation  
+**Environment:** Windows 11, PowerShell, with Docker Desktop already installed  
 **Version assumptions:** Docker Engine 23+ (BuildKit default), Java 21, Maven 3.9 image. Official image tags checked 2026-11-17.
 
 ## Objective
@@ -17,7 +17,7 @@ Practise:
 5. Using a read-only root filesystem, dropped Linux capabilities and no-new-privileges.
 6. Verifying Maven is absent from the final image.
 
-Use the existing Docker Desktop on RANGER. Do not install another Docker engine or run this lab on the VPS or DietPi. The lab uses a unique image tag, no host ports or volumes, and does not modify existing containers.
+Use an existing Docker Desktop installation on Windows 11. Do not install another Docker engine or run this lab on a shared or production host. The lab uses a unique image tag, no host ports or volumes, and does not modify existing containers.
 
 ## 30-minute plan
 
@@ -33,7 +33,7 @@ Use the existing Docker Desktop on RANGER. Do not install another Docker engine 
 
 ## 1. Check Docker and create the lab (3 minutes)
 
-Open **PowerShell on RANGER**, not a WSL terminal.
+Open **PowerShell on Windows 11** (not a WSL terminal).
 
 ```powershell
 docker version
