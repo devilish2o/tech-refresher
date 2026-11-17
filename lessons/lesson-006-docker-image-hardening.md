@@ -40,7 +40,7 @@ docker version
 docker buildx version
 ```
 
-Expected: Docker Client and Server sections are both present; Buildx prints a version. If the Server section is missing, start the already-installed Docker Desktop and retry. Do not install Docker elsewhere for this lesson.
+Expected: Docker Client and Server sections are both present; Buildx prints a version. If the Server section is missing, start the already-installed Docker Desktop and retry. If Docker Desktop is not already installed or the engine remains unavailable, do not install it for this lesson: complete the source/Dockerfile review and leave the build/runtime checks pending until an existing disposable Docker engine is available.
 
 Create the isolated project directory:
 
@@ -318,7 +318,5 @@ Do not paste credentials, private image-registry details, secret files or sensit
 
 ## References
 
-- [Docker Docs — Building best practices](https://docs.docker.com/build/building/best-practices/)
-- [Docker Docs — Multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
-- [Eclipse Temurin official image tags](https://hub.docker.com/_/eclipse-temurin)
-- [Maven official image tags](https://hub.docker.com/_/maven)
+- [Docker Docs — Building best practices](https://docs.docker.com/build/building/best-practices/) — `.dockerignore`, build cache, base-image selection, non-root `USER`, and digest pinning.
+- [Docker Docs — Multi-stage builds](https://docs.docker.com/build/building/multi-stage/) — named stages and copying only the required artifact into the final image.
