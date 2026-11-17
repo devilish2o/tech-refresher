@@ -282,3 +282,51 @@ Do not paste state files, plan files, credentials or sensitive configuration. Do
 
 - [HashiCorp — Terraform `terraform_data` resource](https://developer.hashicorp.com/terraform/language/resources/terraform-data)
 - [HashiCorp — Create a Terraform plan](https://developer.hashicorp.com/terraform/tutorials/cli/plan)
+
+
+## In simple words — what did we actually do?
+
+Terraform is a tool that lets us describe the infrastructure we want in configuration files instead of creating everything manually.
+
+In this exercise, we did not create real servers or cloud resources. We used Terraform's built-in `terraform_data` resource to simulate a small deployment record for a Java application.
+
+Imagine the record contains:
+
+- Environment: DEV
+- Application: `orders-api.war`
+- Release: `2026.11.16-001`
+
+We then practised four important ideas:
+
+1. **Configuration — describe what we want.** The HCL files tell Terraform what resource and values should exist.
+2. **Plan — preview the changes.** Terraform compares the configuration with its state and tells us what it intends to create, change or destroy.
+3. **Apply — carry out the reviewed changes.** Terraform executes the actions in the plan we approved.
+4. **State — keep an inventory of what Terraform manages.** The state records the resource and its attributes so Terraform can compare the desired configuration with what it previously managed.
+
+We changed the release ID from `2026.11.16-001` to `2026.11.16-002`. Because we deliberately configured `triggers_replace`, Terraform proposed replacing the simulated record. We inspected that proposal but did not apply it. Finally, we created and reviewed a destroy plan and removed the lab resource.
+
+### Why does this matter?
+
+Imagine provisioning application infrastructure for development, testing and production. Instead of manually creating each resource, a team can describe the required infrastructure as code and use Terraform to make repeatable, reviewable changes.
+
+The plan is especially important in regulated environments: it gives engineers and approvers a chance to understand the impact before changes are made.
+
+### How does Terraform fit into a DevOps delivery flow?
+
+| Technology | Responsibility |
+|---|---|
+| Jenkins | Orchestrates the delivery workflow. |
+| Maven / Ant | Builds the Java application. |
+| Terraform | Creates and manages the required infrastructure. |
+| Docker | Packages the application and its dependencies. |
+| Kubernetes | Runs and manages containerised applications. |
+
+A pipeline might build and test a WAR with Maven, generate a Terraform plan, request approval, apply the approved infrastructure changes, deploy the application, and validate the result.
+
+### Three things to remember
+
+- **Infrastructure as Code:** describe infrastructure in files so it can be reviewed and reproduced.
+- **Plan before Apply:** inspect the proposed changes before executing them.
+- **Protect state:** it is Terraform's record of managed resources and can contain sensitive information. Secure it and avoid editing it manually.
+
+The lab was a safe simulation of Terraform's change lifecycle, not a real infrastructure deployment.
