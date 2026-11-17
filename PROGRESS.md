@@ -12,6 +12,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 003: completed (user-reported, 2026-11-15).
 - Lesson 004: completed (user-reported).
 - Lesson 005: delivered (2026-11-16); completion checkpoint pending.
+- Lesson 006: delivered (2026-11-17); completion checkpoint pending.
 
 ## Completed sessions
 
@@ -45,3 +46,4 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 003 | Linux systemd service diagnostics | Completed (user-reported, 2026-11-15) |
 | 004 | Python HTTP health checker | Completed (user-reported) |
 | 005 | Terraform saved plans and local state safety | Delivered (2026-11-16); awaiting completion report |
+| 006 | Docker multi-stage Java image and runtime hardening | Delivered (2026-11-17); awaiting completion report |
