@@ -218,7 +218,7 @@ app=orders-api env=dev release=lesson-006 java=21...
 Prove Maven is absent from the final image:
 
 ```powershell
-docker run --rm --entrypoint sh orders-api-lab:lesson-006 -c 'if command -v mvn >/dev/null 2>&1; then echo "ERROR: Maven is present"; exit 1; else echo "OK: Maven is absent"; fi; command -v java'
+docker run --rm --entrypoint sh orders-api-lab:lesson-006 -c "if command -v mvn >/dev/null 2>&1; then echo 'ERROR: Maven is present'; exit 1; else echo 'OK: Maven is absent'; fi; command -v java"
 ```
 
 Expected:
