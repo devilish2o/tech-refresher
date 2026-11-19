@@ -26,11 +26,13 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 2026-11-16 | Lesson 004 — Python HTTP health checker | User reported lesson completed | — | Continue curriculum |
 | 2026-11-18 | Lesson 005 — Terraform saved plans and local state safety | User reported lesson completed | — | Continue curriculum |
 | 2026-11-18 | Lesson 006 — Docker multi-stage Java image and runtime hardening | User confirmed restricted container run and Maven-absence check; lesson completed | — | Continue curriculum |
-| 2026-11-17 | Evening Lab — Jenkins WAR release promotion and rollback (Session 3/3) | Delivered; completion checkpoint pending | — | Confirm rollback simulation, then move to next topic |
+| 2026-11-17 | Evening Lab — Jenkins WAR release promotion and rollback (Session 3/3) | Delivered; completion checkpoint pending | — | Confirm rollback simulation when convenient; evening series capped at 3 sessions |
+| 2026-11-19 | Evening Lab 004 — Windows DNS incident triage and evidence correlation | Delivered; completion checkpoint pending | — | Review summary and report safe checkpoint fields |
 
 ## Evening deep-dive status
 
-- Jenkins + Java WAR release workflow: Session 3/3 delivered on 2026-11-17; completion not yet confirmed. Previous exercise covered pipeline build, validation, artifact fingerprinting and DEV/TEST simulation. This session adds production approval, atomic release switching and rollback simulation.
+- Jenkins + Java WAR release workflow: Session 3/3 delivered on 2026-11-17; completion not yet confirmed. The three-session limit has been reached, so the evening track has moved on rather than repeating it.
+- Windows PowerShell incident triage: Lesson 008 delivered on 2026-11-19; this evening's single-session extension adds read-only DNS/TCP checks, event-time correlation and a sanitised JSON/CSV evidence bundle. Completion checkpoint pending.
 
 ## Topics to revisit
 
@@ -59,3 +61,4 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 007 | Kubernetes readiness probes, rolling updates and rollback | Delivered (2026-11-18); awaiting completion report |
 | 008 | Windows PowerShell service and Event Log incident triage | Delivered (2026-11-19); awaiting completion report |
 | Evening 003 | Jenkins WAR release promotion, approval and rollback simulation | Delivered (2026-11-17); awaiting completion report |
+| Evening 004 | Windows DNS incident triage and evidence correlation | Delivered (2026-11-19); awaiting completion report |
