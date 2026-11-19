@@ -20,6 +20,9 @@ Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform;
 - [Lesson 003 — Diagnose a Linux systemd service safely](lessons/lesson-003-linux-systemd-diagnostics.md) — validate a unit offline and practise read-only service/journal diagnostics.
 - [Lesson 004 — Build a resilient Python HTTP health checker](lessons/lesson-004-python-http-healthcheck.md) — practise bounded retries, timeouts, structured output and automation-friendly exit codes.
 - [Lesson 005 — Terraform plan and state safety](lessons/lesson-005-terraform-plan-state.md) — use the built-in `terraform_data` resource to review a saved plan, apply it, inspect local state, recognise replacement and clean up without cloud credentials.
+- [Lesson 006 — Docker image hardening](lessons/lesson-006-docker-image-hardening.md) — build a multi-stage Java image and apply safer runtime defaults.
+- [Lesson 007 — Kubernetes readiness, rolling updates and rollback](lessons/lesson-007-kubernetes-readiness-rollout-rollback.md) — operate a disposable kind cluster and verify a controlled rollout and rollback.
+- [Lesson 008 — Windows service and Event Log incident triage](lessons/lesson-008-windows-service-eventlog-triage.md) — inspect service state with CIM and query recent Service Control Manager events using PowerShell.
 
 ## Repository map
 
