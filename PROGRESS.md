@@ -14,6 +14,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 005: completed (user-reported, 2026-11-18).
 - Lesson 006: completed (user-reported, 2026-11-18).
 - Lesson 007: delivered (2026-11-18); completion checkpoint pending.
+- Lesson 008: delivered (2026-11-19); completion checkpoint pending.
 
 ## Completed sessions
 
@@ -56,4 +57,5 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 005 | Terraform saved plans and local state safety | Completed (user-reported, 2026-11-18) |
 | 006 | Docker multi-stage Java image and runtime hardening | Completed (user-reported, 2026-11-18) |
 | 007 | Kubernetes readiness probes, rolling updates and rollback | Delivered (2026-11-18); awaiting completion report |
+| 008 | Windows PowerShell service and Event Log incident triage | Delivered (2026-11-19); awaiting completion report |
 | Evening 003 | Jenkins WAR release promotion, approval and rollback simulation | Delivered (2026-11-17); awaiting completion report |
