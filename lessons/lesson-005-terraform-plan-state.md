@@ -330,3 +330,73 @@ A pipeline might build and test a WAR with Maven, generate a Terraform plan, req
 - **Protect state:** it is Terraform's record of managed resources and can contain sensitive information. Secure it and avoid editing it manually.
 
 The lab was a safe simulation of Terraform's change lifecycle, not a real infrastructure deployment.
+
+## 🧸 For Dummies
+
+Imagine you are looking after a toy room. You have a list saying which toys should be in the room. You also keep a notebook saying which toys are actually there.
+
+Terraform works in a similar way when it looks after computer infrastructure.
+
+### 1. The instruction list: configuration
+
+The Terraform files (.tf files) are your instruction list. They describe what you want to exist.
+
+In our little exercise, we asked for one pretend release record saying:
+- Environment: DEV
+- Application: orders-api.war
+- Release number: 2026.11.16-001
+
+We did not create a real server. We created a pretend record so we could practise safely.
+
+### 2. The notebook: state
+
+Terraform keeps a notebook called **state**. It remembers the things Terraform is looking after and their details.
+
+Think of it like an inventory: the instruction list says what should be there; the notebook records what Terraform currently knows about.
+
+### 3. The preview: plan
+
+Before moving or changing toys, a sensible person checks what needs to happen.
+
+That is what `terraform plan` does. It shows us what Terraform intends to do before it does it.
+
+It might say:
+- Add something new.
+- Change something already there.
+- Remove something.
+- Replace something with a new version.
+
+In our exercise, we saved that preview in a file called `initial.tfplan` and looked at it before continuing.
+
+### 4. Doing the work: apply
+
+`terraform apply` carries out the changes shown in the plan.
+
+When we applied `initial.tfplan`, Terraform created our pretend release record and updated its notebook.
+
+Important: applying a saved plan is like saying, "Yes, do exactly what this approved preview says." It does not stop to ask for approval again.
+
+### 5. Changing the release number
+
+We changed the release number from `2026.11.16-001` to `2026.11.16-002`.
+
+We had deliberately told Terraform that a new release number means the old record must be replaced. Terraform showed us that replacement in a new preview.
+
+We did **not** carry out that replacement. We only looked at the preview. Then we made another preview to remove the original pretend record and applied that cleanup plan.
+
+### The whole story in one sentence
+
+**We wrote down what we wanted, asked Terraform to show us the changes, checked the preview, let it create a pretend record, and then safely removed it.**
+
+### Why should you care?
+
+Imagine doing this with real servers, networks, storage or cloud services. A mistake could create costs or interrupt an application. Checking the plan first gives the team a chance to catch mistakes before Terraform makes changes.
+
+And the state notebook is important because Terraform needs to remember what it manages. It must be protected, because it can contain sensitive information.
+
+**Remember these three words:**
+- **Plan:** show me what you intend to do.
+- **Apply:** do the approved work.
+- **State:** remember what you are managing.
+
+That's the heart of this lesson. 🧸
