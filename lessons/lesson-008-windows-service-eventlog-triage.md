@@ -41,13 +41,13 @@ Open **Windows PowerShell** normally; do not choose **Run as administrator** for
 
 Run:
 
-\`\`\`powershell
+```powershell
 $PSVersionTable.PSVersion
 $PSVersionTable.PSEdition
 $env:COMPUTERNAME
 Get-Command Get-CimInstance, Get-Service, Get-WinEvent |
     Select-Object Name, Source
-\`\`\`
+```
 
 Expected:
 - Windows PowerShell reports version **5.1** and edition **Desktop**.
@@ -60,7 +60,7 @@ No installation is required. If you normally use PowerShell 7, that is also fine
 
 Use the Windows DNS Client service as the example. Its internal service name is **Dnscache**.
 
-\`\`\`powershell
+```powershell
 $serviceName = 'Dnscache'
 
 $service = Get-CimInstance -ClassName Win32_Service -Filter "Name='$serviceName'"
@@ -73,7 +73,7 @@ $service |
     Select-Object Name, DisplayName, State, StartMode, DelayedAutoStart,
                   ProcessId, ExitCode, ServiceSpecificExitCode |
     Format-List
-\`\`\`
+```
 
 Read the fields:
 
@@ -85,7 +85,7 @@ Read the fields:
 
 Now inspect the service's dependencies using the simpler ServiceController view:
 
-\`\`\`powershell
+```powershell
 $sc = Get-Service -Name $serviceName
 
 [pscustomobject]@{
@@ -94,13 +94,13 @@ $sc = Get-Service -Name $serviceName
     DependsOn   = ($sc.ServicesDependedOn.Name -join ', ')
     Dependents  = ($sc.DependentServices.Name -join ', ')
 } | Format-List
-\`\`\`
+```
 
 The two views complement each other: **Get-Service** is convenient for status and dependency relationships; **Win32_Service** exposes startup configuration and additional service metadata.
 
 ### 3. Find automatic services that are stopped — 3 minutes
 
-\`\`\`powershell
+```powershell
 $autoStopped = @(
     Get-CimInstance -ClassName Win32_Service |
         Where-Object {
@@ -115,7 +115,7 @@ $autoStopped |
     Select-Object -First 15 Name, State, StartMode, DelayedAutoStart,
                           ExitCode, ServiceSpecificExitCode |
     Format-Table -AutoSize
-\`\`\`
+```
 
 **Important:** a stopped service is not automatically an incident. Some services stop after completing work, and some are demand/trigger-start services. Check the service's role and its events before deciding it is unhealthy. A service with StartMode = Manual is not expected to run continuously.
 
@@ -132,7 +132,7 @@ The message and surrounding timeline matter more than the ID alone.
 
 Build a server-side filter for the last seven days:
 
-\`\`\`powershell
+```powershell
 $since = (Get-Date).AddDays(-7)
 
 $failureIds = @(7000, 7001, 7009, 7011, 7023, 7024, 7031, 7034)
@@ -169,7 +169,7 @@ else {
                               RecordId, Message |
         Format-List
 }
-\`\`\`
+```
 
 Why this is preferable to reading the entire System log and filtering with Where-Object:
 - **FilterHashtable** applies the time, provider and event-ID criteria while Windows retrieves the records.
@@ -182,7 +182,7 @@ If the query reports access denied, do not change event-log permissions. On a ma
 
 Search the returned event messages for either the service's internal name or display name:
 
-\`\`\`powershell
+```powershell
 $serviceEvents = @(
     $scmFailures |
         Where-Object {
@@ -199,11 +199,11 @@ else {
         Select-Object TimeCreated, Id, LevelDisplayName, RecordId, Message |
         Format-List
 }
-\`\`\`
+```
 
 Create a concise local triage object:
 
-\`\`\`powershell
+```powershell
 [pscustomobject]@{
     CollectedAt             = Get-Date
     Computer                = $env:COMPUTERNAME
@@ -217,7 +217,7 @@ Create a concise local triage object:
     SCMFailuresLast7Days    = $scmFailures.Count
     EventsMentioningService = $serviceEvents.Count
 } | Format-List
-\`\`\`
+```
 
 If a relevant event exists, note its timestamp and read the **complete message**. Then inspect nearby events in the Application log and the service's own product logs around the same time. A failure event tells you what Windows observed; it does not necessarily identify the underlying cause.
 
