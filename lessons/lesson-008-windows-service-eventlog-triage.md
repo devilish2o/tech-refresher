@@ -163,13 +163,16 @@ catch {
 if ($scmFailures.Count -eq 0) {
     Write-Host "No matching SCM failure events were found since $since."
 }
-else {
+
+if ($scmFailures.Count -gt 0) {
     $scmFailures |
         Select-Object -First 15 TimeCreated, Id, LevelDisplayName,
                               RecordId, Message |
         Format-List
 }
 ```
+
+The two result checks below are deliberately separate **if** blocks rather than an if/else pair. In the interactive PowerShell console, the first block can execute as soon as its closing brace is entered; a separately pasted `else` may then be treated as a new command.
 
 Why this is preferable to reading the entire System log and filtering with Where-Object:
 - **FilterHashtable** applies the time, provider and event-ID criteria while Windows retrieves the records.
@@ -194,7 +197,8 @@ $serviceEvents = @(
 if ($serviceEvents.Count -eq 0) {
     Write-Host "No matching SCM failure message mentions $($service.DisplayName)."
 }
-else {
+
+if ($serviceEvents.Count -gt 0) {
     $serviceEvents |
         Select-Object TimeCreated, Id, LevelDisplayName, RecordId, Message |
         Format-List
