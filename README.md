@@ -23,6 +23,8 @@ Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform;
 - [Lesson 006 — Docker image hardening](lessons/lesson-006-docker-image-hardening.md) — build a multi-stage Java image and apply safer runtime defaults.
 - [Lesson 007 — Kubernetes readiness, rolling updates and rollback](lessons/lesson-007-kubernetes-readiness-rollout-rollback.md) — operate a disposable kind cluster and verify a controlled rollout and rollback.
 - [Lesson 008 — Windows service and Event Log incident triage](lessons/lesson-008-windows-service-eventlog-triage.md) — inspect service state with CIM and query recent Service Control Manager events using PowerShell.
+- [Lesson 009 — Control-M dependency-driven batch flow](lessons/lesson-009-controlm-flow-dependencies.md) — model a three-job Flow and validate dependency order and waiting-job diagnosis locally.
+- [Lesson 010 — Axway SecureTransport transfer triage](lessons/lesson-010-securetransport-transfer-triage.md) — correlate inbound and outbound transfer legs with File Tracking, Server Log and synthetic PowerShell evidence.
 
 ## Repository map
 
