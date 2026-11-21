@@ -16,6 +16,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 007: delivered (2026-11-18); completion checkpoint pending.
 - Lesson 008: delivered (2026-11-19); completion checkpoint pending.
 - Lesson 009: delivered (2026-11-20); completion checkpoint pending.
+- Lesson 010: delivered (2026-11-21); completion checkpoint pending.
 
 ## Completed sessions
 
@@ -62,5 +63,6 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 007 | Kubernetes readiness probes, rolling updates and rollback | Delivered (2026-11-18); awaiting completion report |
 | 008 | Windows PowerShell service and Event Log incident triage | Delivered (2026-11-19); awaiting completion report |
 | 009 | Control-M Automation API flow dependencies and waiting-job diagnosis | Delivered (2026-11-20); awaiting completion report |
+| 010 | Axway SecureTransport inbound/outbound transfer correlation and failure-boundary triage | Delivered (2026-11-21); awaiting completion report |
 | Evening 003 | Jenkins WAR release promotion, approval and rollback simulation | Delivered (2026-11-17); awaiting completion report |
 | Evening 004 | Windows DNS incident triage and evidence correlation | Delivered (2026-11-19); awaiting completion report |
