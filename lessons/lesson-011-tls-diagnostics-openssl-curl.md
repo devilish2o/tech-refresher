@@ -154,11 +154,11 @@ curl --head \
   --connect-timeout 5 \
   --max-time 15 \
   --output /dev/null \
-  --write-out '\nHTTP=%{http_code} remote=%{remote_ip} tls=%{ssl_version} verify=%{ssl_verify_result}\n' \
+  --write-out '\nHTTP=%{http_code} remote=%{remote_ip} verify=%{ssl_verify_result}\n' \
   https://example.com/
 ```
 
-Expected: an HTTP status, remote IP, TLS version and certificate verification result of `0`. The exact HTTP status or TLS version can vary with the remote service.
+Expected: an HTTP status, remote IP and certificate verification result of `0`. The exact HTTP status and remote IP can vary with the remote service. Do not request `%{ssl_version}` from curl's `--write-out` here: the user's Debian 12 curl 7.88.1 build reports it as an unknown variable. The TLS protocol and cipher are already reported by the verified `openssl s_client -brief` check in Step 3. Keep TLS negotiation evidence separate from curl's HTTP and certificate-verification summary.
 
 Interpretation:
 - DNS succeeds, but TCP times out: investigate routing, firewall/security policy or remote reachability.
@@ -166,6 +166,8 @@ Interpretation:
 - TLS reaches certificate verification but fails: inspect trust chain, validity dates, system clock and hostname/SAN.
 - TLS verifies but HTTP returns 4xx/5xx: the TLS layer completed; investigate the HTTP application, reverse proxy, routing or backend.
 - HTTP 200 is not proof that every application workflow is healthy; it only proves this request received that response.
+
+On this Debian 12 host, curl reports version `7.88.1` with OpenSSL `3.0.22`. Its `--write-out` parser rejects `%{ssl_version}` (`curl: unknown --write-out variable: 'ssl_version'`), even though TLS itself works. This is a write-out-variable compatibility issue, not a TLS failure. Use Step 3's OpenSSL output for the negotiated TLS protocol.
 
 ## Failure-classification quick reference
 
