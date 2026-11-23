@@ -14,7 +14,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 005: completed (user-reported, 2026-11-18).
 - Lesson 006: completed (user-reported, 2026-11-18).
 - Lesson 007: delivered (2026-11-18); completion checkpoint pending.
-- Lesson 008: delivered (2026-11-19); completion checkpoint pending.
+- Lesson 008: completed (user-reported, 2026-11-20).
 - Lesson 009: delivered (2026-11-20); completion checkpoint pending.
 - Lesson 010: delivered (2026-11-21); completion checkpoint pending.
 - Lesson 011: delivered (2026-11-22); completion checkpoint pending.
@@ -31,7 +31,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 2026-11-18 | Lesson 005 — Terraform saved plans and local state safety | User reported lesson completed | — | Continue curriculum |
 | 2026-11-18 | Lesson 006 — Docker multi-stage Java image and runtime hardening | User confirmed restricted container run and Maven-absence check; lesson completed | — | Continue curriculum |
 | 2026-11-17 | Evening Lab — Jenkins WAR release promotion and rollback (Session 3/3) | Delivered; completion checkpoint pending | — | Confirm rollback simulation when convenient; evening series capped at 3 sessions |
-| 2026-11-19 | Evening Lab 004 — Windows DNS incident triage and evidence correlation | Delivered; completion checkpoint pending | — | Review summary and report safe checkpoint fields |
+| 2026-11-20 | Lesson 008 — Windows service and Event Log incident triage | User reported lesson completed; unrelated SCM events were identified and ruled out for the DNS Client service | — | Continue curriculum |\n| 2026-11-19 | Evening Lab 004 — Windows DNS incident triage and evidence correlation | Delivered; completion checkpoint pending | — | Review summary and report safe checkpoint fields |
 
 ## Evening deep-dive status
 
@@ -63,7 +63,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 005 | Terraform saved plans and local state safety | Completed (user-reported, 2026-11-18) |
 | 006 | Docker multi-stage Java image and runtime hardening | Completed (user-reported, 2026-11-18) |
 | 007 | Kubernetes readiness probes, rolling updates and rollback | Delivered (2026-11-18); awaiting completion report |
-| 008 | Windows PowerShell service and Event Log incident triage | Delivered (2026-11-19); awaiting completion report |
+| 008 | Windows PowerShell service and Event Log incident triage | Completed (user-reported, 2026-11-20) |
 | 009 | Control-M Automation API flow dependencies and waiting-job diagnosis | Delivered (2026-11-20); awaiting completion report |
 | 010 | Axway SecureTransport inbound/outbound transfer correlation and failure-boundary triage | Delivered (2026-11-21); awaiting completion report |
 | 011 | Networking/TLS: DNS, TCP, SNI, certificate-chain and hostname verification with OpenSSL/curl | Delivered (2026-11-22); awaiting completion report |
