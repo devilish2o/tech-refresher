@@ -26,6 +26,7 @@ Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform;
 - [Lesson 009 — Control-M dependency-driven batch flow](lessons/lesson-009-controlm-flow-dependencies.md) — model a three-job Flow and validate dependency order and waiting-job diagnosis locally.
 - [Lesson 010 — Axway SecureTransport transfer triage](lessons/lesson-010-securetransport-transfer-triage.md) — correlate inbound and outbound transfer legs with File Tracking, Server Log and synthetic PowerShell evidence.
 - [Lesson 011 — Layered TLS diagnostics with OpenSSL and curl](lessons/lesson-011-tls-diagnostics-openssl-curl.md) — separate DNS, TCP, SNI, certificate-chain/hostname verification and HTTP response.
+- [Lesson 012 — MATLAB telemetry anomaly detection](lessons/lesson-012-matlab-telemetry-anomaly-detection.md) — validate synthetic telemetry, build a timetable and detect spikes with a causal moving-median baseline.
 
 ## Repository map
 
