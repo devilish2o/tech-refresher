@@ -19,6 +19,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 010: delivered (2026-11-21); completion checkpoint pending.
 - Lesson 011: delivered (2026-11-22); completion checkpoint pending.
 - Lesson 012: delivered (2026-11-23); completion checkpoint pending.
+- Lesson 013: delivered (2026-11-24); completion checkpoint pending.
 
 ## Completed sessions
 
@@ -69,5 +70,6 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 010 | Axway SecureTransport inbound/outbound transfer correlation and failure-boundary triage | Delivered (2026-11-21); awaiting completion report |
 | 011 | Networking/TLS: DNS, TCP, SNI, certificate-chain and hostname verification with OpenSSL/curl | Delivered (2026-11-22); awaiting completion report |
 | 012 | MATLAB: CSV telemetry validation, timetable construction and causal moving-median anomaly detection | Delivered (2026-11-23); awaiting completion report |
+| 013 | Apache Ant: Java 11 compilation, smoke test, WAR packaging, archive-layout verification and SHA-256 integrity check | Delivered (2026-11-24); awaiting completion report |
 | Evening 003 | Jenkins WAR release promotion, approval and rollback simulation | Delivered (2026-11-17); awaiting completion report |
 | Evening 004 | Windows DNS incident triage and evidence correlation | Delivered (2026-11-19); awaiting completion report |
