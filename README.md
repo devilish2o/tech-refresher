@@ -27,6 +27,7 @@ Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automation; Terraform;
 - [Lesson 010 — Axway SecureTransport transfer triage](lessons/lesson-010-securetransport-transfer-triage.md) — correlate inbound and outbound transfer legs with File Tracking, Server Log and synthetic PowerShell evidence.
 - [Lesson 011 — Layered TLS diagnostics with OpenSSL and curl](lessons/lesson-011-tls-diagnostics-openssl-curl.md) — separate DNS, TCP, SNI, certificate-chain/hostname verification and HTTP response.
 - [Lesson 012 — MATLAB telemetry anomaly detection](lessons/lesson-012-matlab-telemetry-anomaly-detection.md) — validate synthetic telemetry, build a timetable and detect spikes with a causal moving-median baseline.
+- [Lesson 013 — Apache Ant Java WAR packaging](lessons/lesson-013-ant-java-war-packaging.md) — compile Java 11 code, smoke-test, package a WAR, verify its layout and generate/check a SHA-256 digest.
 
 ## Repository map
 
