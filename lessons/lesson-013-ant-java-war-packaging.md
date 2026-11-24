@@ -10,7 +10,118 @@
 
 Build a small static web application WAR with Ant, compile one Java helper class, run a smoke test, inspect the archive layout, and verify its SHA-256 checksum.
 
-This complements Lesson 001's Maven WAR build. Maven and Ant are different build tools: Maven is convention/declarative and dependency-lifecycle oriented; Ant is task/target oriented and gives the build author explicit control over sequencing.
+This complements Lesson 001's Maven WAR build. The key difference is **how each tool describes and executes a build**:
+
+- **Ant is task/target oriented (procedural):** the build author writes the steps — create directories, compile, copy resources, package, verify — and defines their dependencies/order.
+- **Maven is project/lifecycle oriented (declarative/convention-based):** the POM describes the project, packaging type, dependencies and configuration. Maven supplies a standard lifecycle and plugins that perform conventional steps.
+
+Neither is universally better. Ant offers explicit control and suits customised/legacy builds. Maven standardises common Java builds and provides integrated dependency management.
+
+## Maven versus Ant — a practical explanation
+
+Imagine both tools must produce the same `ops-status.war`.
+
+### Ant: you write the recipe
+
+Ant's main build file is `build.xml`. A target groups tasks, and `depends` establishes ordering:
+
+```xml
+<project name="ops-status" default="package">
+    <target name="prepare">
+        <mkdir dir="build/classes"/>
+    </target>
+
+    <target name="compile" depends="prepare">
+        <javac srcdir="src/main/java"
+               destdir="build/classes"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="package" depends="compile">
+        <war destfile="dist/ops-status.war"
+             webxml="src/main/webapp/WEB-INF/web.xml">
+            <fileset dir="src/main/webapp"
+                     excludes="WEB-INF/web.xml"/>
+            <classes dir="build/classes"/>
+        </war>
+    </target>
+</project>
+```
+
+Read it literally: create an output directory; compile the Java files; put the compiled classes and web resources into a WAR. If you need another operation, you add another task/target and wire its dependency/order. Ant does not impose a standard Java lifecycle or standard source layout.
+
+Run a target you defined:
+
+```powershell
+ant package
+```
+
+### Maven: describe the project and use its lifecycle
+
+Maven's main file is `pom.xml`. For a conventional WAR project, this minimal POM tells Maven the coordinates, Java release and packaging type:
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ca.kairos.ops</groupId>
+    <artifactId>ops-status</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <maven.compiler.release>11</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+</project>
+```
+
+Maven conventionally expects Java source under `src/main/java`, test source under `src/test/java`, and web application content under `src/main/webapp`. It uses lifecycle phases and plugins to compile, test and package. You normally do not write the individual directory-creation and compiler commands yourself.
+
+Run the standard lifecycle through the package phase:
+
+```powershell
+mvn clean package
+```
+
+Maven runs preceding phases in order, including validation, resource processing, compilation and testing, before packaging. A phase may have no goal bound to it in a particular project, but it remains part of the lifecycle.
+
+### The dependency-management difference
+
+With Ant, dependencies can be managed manually (for example, JARs in a `lib/` directory and an explicit classpath), or with an additional tool such as Apache Ivy. Ant itself does not provide Maven's integrated dependency model.
+
+With Maven, dependencies are declared in the POM. Maven resolves them from configured repositories, including transitive dependencies:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.18.2</version>
+    </dependency>
+</dependencies>
+```
+
+### Side-by-side
+
+| Concern | Ant | Maven |
+|---|---|---|
+| Main file | `build.xml` | `pom.xml` |
+| Mental model | Write the build steps | Describe project; use standard lifecycle |
+| Execution units | Targets containing tasks | Lifecycle phases with plugin goals |
+| Ordering | Explicit target dependencies and task order | Standard phase order; plugin goals bound to phases |
+| Project layout | Build author chooses it | Standard conventions by default |
+| Java compilation | Usually explicit `<javac>` task | Compiler plugin bound to lifecycle |
+| WAR packaging | Usually explicit `<war>` task | WAR plugin bound to `package` |
+| Dependencies | Manual or additional tooling such as Ivy | Integrated dependency resolution |
+| Customisation | Very direct and flexible | Plugin configuration and lifecycle extensions |
+
+### How Jenkins fits
+
+Jenkins orchestrates the build; it does not replace Ant or Maven. A Jenkins stage might run `mvn clean verify` or `ant clean verify`, then archive the resulting WAR. The build tool creates and validates the artifact; Jenkins coordinates agents, stages, approvals and artifact handling.
+
+**For a new conventional Java application, Maven is generally the easier default.** Ant remains important in established applications with bespoke build logic. Maven can invoke Ant tasks through a plugin, but that should be a deliberate compatibility choice rather than the default design.
+
+🧸 **For Dummies:** Ant is like giving a builder every instruction in order. Maven is like telling a builder what kind of house you want and using the builder's standard construction process. Both can produce the same house; one makes you describe more of the steps.
 
 ## Timed plan
 
@@ -27,8 +138,8 @@ This complements Lesson 001's Maven WAR build. Maven and Ant are different build
 
 1. [Apache Ant — WAR task](https://ant.apache.org/manual/Tasks/war.html) — `webxml`, `classes`, duplicate-entry handling and archive timestamps.
 2. [Apache Ant — Javac task](https://ant.apache.org/manual/Tasks/javac.html) — compilation destination, `includeantruntime`, Java release targeting and incremental compilation.
-
-Useful supporting reference: [Apache Ant — Checksum task](https://ant.apache.org/manual/Tasks/checksum.html), for SHA-256 generation and verification.
+3. [Maven — Introduction to the Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle) — lifecycle phases and plugin goals.
+4. [Maven — Introduction to the POM](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html) — project coordinates, packaging and dependencies.
 
 ## 1. Preflight — 4 minutes
 
@@ -294,7 +405,6 @@ No deployment is performed in this lab.
 ## Expected outcome
 
 You should have:
-
 - `build.xml` with separate clean, compile, smoke-test, package and verify targets.
 - A compiled Java class under `build/classes`.
 - A WAR under `dist/ops-status.war`.
@@ -303,11 +413,11 @@ You should have:
 
 ## Quick self-check
 
-1. Why is Ant's `<javac>` destination directory separate from the source tree?
-2. What does `includeantruntime="false"` protect against?
-3. Why should duplicate WAR entries fail the build?
-4. Why is a SHA-256 digest useful when promoting an immutable artifact?
-5. Why should dev/test/prod configuration not be baked into the WAR?
+1. In one sentence, what does Ant make you define that Maven normally supplies through conventions and its lifecycle?
+2. What is the difference between an Ant target/task and a Maven lifecycle phase/plugin goal?
+3. Why does Maven generally make dependency management easier?
+4. Why should dev/test/prod configuration not be baked into the WAR?
+5. Which build tool would you normally choose for a new conventional Java application, and why?
 
 ## Production / interview relevance
 
@@ -320,25 +430,16 @@ A concise interview answer:
 ## Completion checkpoint
 
 Report:
-
 - Java runtime/compiler versions.
 - Ant version.
 - `ant clean verify`: passed or blocked.
 - Whether the smoke test printed the expected build string.
 - Whether all three application entries were present in the WAR.
 - Whether SHA-256 verification passed.
-- One difference between Ant targets/tasks and Maven's lifecycle/plugins.
+- Whether the Maven-versus-Ant explanation is now clear.
 
 Do not paste environment variables containing secrets, internal repository URLs, or private configuration.
 
 ## 🧸 For Dummies
 
-Think of a WAR file as a packed suitcase for a Java web application.
-
-- `javac` packs the compiled Java clothes.
-- The web folder adds the web pages and instructions.
-- Ant puts everything into the suitcase.
-- The verification step opens the suitcase and checks that nothing important is missing.
-- SHA-256 gives the suitcase a fingerprint so we can check that the same suitcase reaches the next environment.
-
-We pack once, check it, and send that same suitcase to test and production. We don't secretly repack it differently for every destination. 🧸
+Ant is like giving a builder every instruction in order. Maven is like telling a builder what kind of house you want and using the builder's standard construction process. Both can produce the same house; one makes you describe more of the steps. 🧸
