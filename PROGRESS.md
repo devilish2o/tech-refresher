@@ -6,19 +6,18 @@ Update this file after each session. Keep entries brief and record concrete evid
 
 - Start date: 2026-11-12
 - Daily target: 30 minutes
-- Evening deep dives: Tuesday / Thursday, 18:00 (when a lab needs more time)
 - Lesson 001: completed (user-reported).
 - Lesson 002: completed (user-reported, 2026-11-15).
 - Lesson 003: completed (user-reported, 2026-11-15).
 - Lesson 004: completed (user-reported).
 - Lesson 005: completed (user-reported, 2026-11-18).
 - Lesson 006: completed (user-reported, 2026-11-18).
-- Lesson 007: delivered (2026-11-18); completion checkpoint pending.
+- Lesson 007: completed (user-reported, 2026-11-24).
 - Lesson 008: completed (user-reported, 2026-11-20).
-- Lesson 009: delivered (2026-11-20); completion checkpoint pending.
-- Lesson 010: delivered (2026-11-21); completion checkpoint pending.
-- Lesson 011: delivered (2026-11-22); completion checkpoint pending.
-- Lesson 012: delivered (2026-11-23); completion checkpoint pending.
+- Lesson 009: not completed; Control-M is not installed. Do not schedule another hands-on Control-M tutorial unless the user confirms an environment or explicitly requests a conceptual simulation.
+- Lesson 010: not completed; Axway SecureTransport is not installed. Do not schedule another hands-on SecureTransport tutorial unless the user confirms an environment or explicitly requests a conceptual simulation.
+- Lesson 011: completed (user-reported, 2026-11-24).
+- Lesson 012: completed (user-reported, 2026-11-24).
 - Lesson 013: delivered (2026-11-24); completion checkpoint pending.
 
 ## Completed sessions
@@ -31,32 +30,21 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 2026-11-16 | Lesson 004 — Python HTTP health checker | User reported lesson completed | — | Continue curriculum |
 | 2026-11-18 | Lesson 005 — Terraform saved plans and local state safety | User reported lesson completed | — | Continue curriculum |
 | 2026-11-18 | Lesson 006 — Docker multi-stage Java image and runtime hardening | User confirmed restricted container run and Maven-absence check; lesson completed | — | Continue curriculum |
-| 2026-11-17 | Evening Lab — Jenkins WAR release promotion and rollback (Session 3/3) | Delivered; completion checkpoint pending | — | Confirm rollback simulation when convenient; evening series capped at 3 sessions |
+| 2026-11-24 | Lesson 007 — Kubernetes readiness probes, rolling updates and rollback | User reported lesson completed | — | Continue curriculum |
 | 2026-11-20 | Lesson 008 — Windows service and Event Log incident triage | User reported lesson completed; unrelated SCM events were identified and ruled out for the DNS Client service | — | Continue curriculum |
-| 2026-11-19 | Evening Lab 004 — Windows DNS incident triage and evidence correlation | Delivered; completion checkpoint pending | — | Review summary and report safe checkpoint fields |
+| 2026-11-24 | Lesson 011 — Networking/TLS diagnostics | User reported lesson completed | — | Continue curriculum |
+| 2026-11-24 | Lesson 012 — MATLAB telemetry anomaly detection | User reported lesson completed | — | Continue curriculum |
 
-## Evening deep-dive status
+## Unavailable software — do not schedule hands-on lessons
 
-- Jenkins + Java WAR release workflow: Session 3/3 delivered on 2026-11-17; completion not yet confirmed. The three-session limit has been reached, so the evening track has moved on rather than repeating it.
-- Windows PowerShell incident triage: Lesson 008 delivered on 2026-11-19; this evening's single-session extension adds read-only DNS/TCP checks, event-time correlation and a sanitised JSON/CSV evidence bundle. Completion checkpoint pending.
+| Lesson | Product | Status | Future handling |
+|---:|---|---|---|
+| 009 | Control-M | Not completed; product not installed | Pause hands-on tutorials. Resume only if user confirms access or requests a conceptual simulation. |
+| 010 | Axway SecureTransport | Not completed; product not installed | Pause hands-on tutorials. Resume only if user confirms access or requests a conceptual simulation. |
 
-## Topics to revisit
+## Delivered lessons
 
-- [ ] Jenkins pipelines and shared libraries
-- [ ] Java WAR build and environment promotion
-- [ ] Python automation and API resilience
-- [ ] Terraform state, modules and drift
-- [ ] Docker image and runtime security
-- [ ] Kubernetes operations and troubleshooting
-- [ ] Control-M dependencies and recovery
-- [ ] Axway SecureTransport / MFT operations
-- [ ] Linux and Windows diagnostics
-- [ ] Networking, TLS and security
-- [ ] MATLAB refresh
-
-## Delivered lessons (completion not yet confirmed unless noted above)
-
-| Lesson | Domain / topic | Delivery status |
+| Lesson | Domain / topic | Status |
 |---:|---|---|
 | 001 | Maven WAR packaging | Completed (user-reported) |
 | 002 | Jenkins Freestyle versus Declarative Pipeline | Completed (user-reported, 2026-11-15) |
@@ -64,12 +52,31 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 004 | Python HTTP health checker | Completed (user-reported) |
 | 005 | Terraform saved plans and local state safety | Completed (user-reported, 2026-11-18) |
 | 006 | Docker multi-stage Java image and runtime hardening | Completed (user-reported, 2026-11-18) |
-| 007 | Kubernetes readiness probes, rolling updates and rollback | Delivered (2026-11-18); awaiting completion report |
+| 007 | Kubernetes readiness probes, rolling updates and rollback | Completed (user-reported, 2026-11-24) |
 | 008 | Windows PowerShell service and Event Log incident triage | Completed (user-reported, 2026-11-20) |
-| 009 | Control-M Automation API flow dependencies and waiting-job diagnosis | Delivered (2026-11-20); awaiting completion report |
-| 010 | Axway SecureTransport inbound/outbound transfer correlation and failure-boundary triage | Delivered (2026-11-21); awaiting completion report |
-| 011 | Networking/TLS: DNS, TCP, SNI, certificate-chain and hostname verification with OpenSSL/curl | Delivered (2026-11-22); awaiting completion report |
-| 012 | MATLAB: CSV telemetry validation, timetable construction and causal moving-median anomaly detection | Delivered (2026-11-23); awaiting completion report |
-| 013 | Apache Ant: Java 11 compilation, smoke test, WAR packaging, archive-layout verification and SHA-256 integrity check | Delivered (2026-11-24); awaiting completion report |
-| Evening 003 | Jenkins WAR release promotion, approval and rollback simulation | Delivered (2026-11-17); awaiting completion report |
-| Evening 004 | Windows DNS incident triage and evidence correlation | Delivered (2026-11-19); awaiting completion report |
+| 009 | Control-M dependency-driven batch flow | Not completed — product unavailable; hands-on tutorials paused |
+| 010 | Axway SecureTransport transfer triage | Not completed — product unavailable; hands-on tutorials paused |
+| 011 | Networking/TLS: DNS, TCP, SNI, certificate-chain and hostname verification with OpenSSL/curl | Completed (user-reported, 2026-11-24) |
+| 012 | MATLAB: CSV telemetry validation, timetable construction and causal moving-median anomaly detection | Completed (user-reported, 2026-11-24) |
+| 013 | Apache Ant: Java 11 compilation, smoke test, WAR packaging, archive-layout verification and SHA-256 integrity check | Delivered (2026-11-24); completion pending |
+
+## Topics to revisit
+
+- [ ] AWS architecture and operations: IAM, EC2, VPC, S3, RDS, ELB/ALB, Auto Scaling, CloudWatch, CloudTrail, Systems Manager, ECR and EKS
+- [ ] Jenkins pipelines and shared libraries
+- [ ] Java WAR build and environment promotion
+- [ ] Python automation and API resilience
+- [ ] Terraform state, modules, drift and AWS provider workflows
+- [ ] Docker image and runtime security
+- [ ] Kubernetes operations and troubleshooting
+- [ ] Linux and Windows diagnostics
+- [ ] Networking, TLS and defensive security
+- [ ] MATLAB refresh
+- [ ] Git, observability and incident response
+
+## Scheduling guidance
+
+- Give AWS increased weight across the rotation, not just as a one-off topic. Pair AWS labs with Terraform, IAM/security, networking, observability and CI/CD where useful.
+- Prefer free/local simulations or read-only inspection. Identify cost-bearing AWS resources and cleanup steps; do not create paid resources without explicit user approval.
+- Do not schedule new hands-on Control-M or Axway SecureTransport tutorials while the products are unavailable. A conceptual/simulated lesson requires the user's explicit request.
+- Every daily lesson remains independently achievable in 30 minutes. Longer labs are optional and must not be created automatically from a daily lesson.
