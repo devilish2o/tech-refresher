@@ -31,6 +31,7 @@ Core rotation: Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automat
 - [Lesson 011 — Layered TLS diagnostics with OpenSSL and curl](lessons/lesson-011-tls-diagnostics-openssl-curl.md) — separate DNS, TCP, SNI, certificate-chain/hostname verification and HTTP response.
 - [Lesson 012 — MATLAB telemetry anomaly detection](lessons/lesson-012-matlab-telemetry-anomaly-detection.md) — validate synthetic telemetry, build a timetable and detect spikes with a causal moving-median baseline.
 - [Lesson 013 — Apache Ant Java WAR packaging](lessons/lesson-013-ant-java-war-packaging.md) — compile Java 11 code, smoke-test, package a WAR, verify its layout and generate/check a SHA-256 digest; includes an expanded Maven-versus-Ant explanation.
+- [Lesson 014 — AWS IAM policy evaluation and least-privilege S3 access](lessons/lesson-014-aws-iam-policy-evaluation.md) — draft a prefix-scoped read-only policy, validate JSON locally and simulate Allow/Deny outcomes without creating AWS resources.
 
 ## Repository map
 
