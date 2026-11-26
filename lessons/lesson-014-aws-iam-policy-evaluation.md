@@ -142,6 +142,61 @@ For this simple identity-policy exercise:
 
 The simulator is a useful pre-deployment check, not proof of live behaviour. AWS documents cases where simulation can differ from the actual environment; verify the effective permissions and relevant resource policies through your normal controlled review before a real deployment.
 
+
+## Equivalent Linux shell workflow
+
+Assumptions: Bash and Python 3; jq is optional. No AWS credentials or resources are required.
+
+Create the same lab directory:
+
+```bash
+mkdir -p "$HOME/labs/tech-refresher/lesson-014-aws-iam"
+cd "$HOME/labs/tech-refresher/lesson-014-aws-iam"
+```
+
+Create the same policy JSON:
+
+```bash
+cat > s3-reports-readonly-policy.json <<'JSON'
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListOnlyReportsPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::example-company-reports",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": ["reports/", "reports/*"]
+        }
+      }
+    },
+    {
+      "Sid": "ReadOnlyReportsObjects",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::example-company-reports/reports/*"
+    }
+  ]
+}
+JSON
+```
+
+Validate JSON using Python 3 (standard library; no install required):
+
+```bash
+python3 -m json.tool s3-reports-readonly-policy.json
+```
+
+Optional statement inspection with jq:
+
+```bash
+jq -r '.Version, (.Statement[] | [.Sid, .Effect, (.Action|tostring), .Resource] | @tsv)' s3-reports-readonly-policy.json
+```
+
+Expected: formatted JSON with no parsing error and two policy statements. This validates syntax, not AWS authorization. Use the same IAM Policy Simulator steps and six-case decision matrix in the main exercise. There is no equivalent local Bash command that can replace AWS policy evaluation.
+
 ## Expected outcome
 
 You should have:
