@@ -42,6 +42,11 @@ Core rotation: Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automat
 - [Progress log](PROGRESS.md) — maintain your own completion notes.
 - [Labs](labs/) — practical exercises and checkpoints.
 
+
+## AWS lesson command parity
+
+Every AWS lesson that includes command-line work must provide **both Windows PowerShell and Linux shell (Bash) equivalents**, either side by side or in clearly labelled subsections. Keep the operations and expected results equivalent. State prerequisites (AWS CLI, Python, jq, etc.), shell/version assumptions and platform-specific differences. If a task is console-only, say so rather than inventing a CLI equivalent. Reuse the same synthetic inputs/placeholders where practical. Keep cloud actions read-only or disposable, cost-aware and explicitly approved.
+
 ## Ground rules
 
 1. Prefer official documentation and current versions; check compatibility before using commands.
