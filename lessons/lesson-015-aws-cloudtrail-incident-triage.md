@@ -220,6 +220,161 @@ Do not search only CloudTrail Event history when investigating an S3 GetObject o
 
 If a real account is available, use read-only inspection of its existing logging configuration. Do not create or modify a trail or event data store for this lesson.
 
+
+## Equivalent Linux shell workflow
+
+Assumptions: Bash and Python 3. jq is optional. This is synthetic data only; no AWS CLI, credentials or cloud resources are needed.
+
+### 1. Create the lab directory and fixture
+
+```bash
+mkdir -p "$HOME/labs/tech-refresher/lesson-015-cloudtrail"
+cd "$HOME/labs/tech-refresher/lesson-015-cloudtrail"
+
+cat > cloudtrail-events.json <<'JSON'
+[
+  {
+    "eventTime": "2026-11-26T18:10:59Z",
+    "eventSource": "s3.amazonaws.com",
+    "eventName": "GetObject",
+    "awsRegion": "ca-central-1",
+    "sourceIPAddress": "203.0.113.25",
+    "userIdentity": {
+      "type": "AssumedRole",
+      "arn": "arn:aws:sts::111122223333:assumed-role/reports-reader/reporting-job",
+      "sessionContext": {
+        "sessionIssuer": {
+          "arn": "arn:aws:iam::111122223333:role/reports-reader"
+        }
+      }
+    },
+    "requestParameters": {
+      "bucketName": "example-company-reports",
+      "key": "reports/2026/summary.csv"
+    },
+    "eventCategory": "Data",
+    "eventID": "11111111-1111-4111-8111-111111111111",
+    "requestID": "SYNTH-REQUEST-001"
+  },
+  {
+    "eventTime": "2026-11-26T18:11:03Z",
+    "eventSource": "s3.amazonaws.com",
+    "eventName": "GetObject",
+    "awsRegion": "ca-central-1",
+    "sourceIPAddress": "203.0.113.25",
+    "userIdentity": {
+      "type": "AssumedRole",
+      "arn": "arn:aws:sts::111122223333:assumed-role/reports-reader/reporting-job",
+      "sessionContext": {
+        "sessionIssuer": {
+          "arn": "arn:aws:iam::111122223333:role/reports-reader"
+        }
+      }
+    },
+    "requestParameters": {
+      "bucketName": "example-company-reports",
+      "key": "finance/payroll.csv"
+    },
+    "errorCode": "AccessDenied",
+    "errorMessage": "Access Denied",
+    "eventCategory": "Data",
+    "eventID": "22222222-2222-4222-8222-222222222222",
+    "requestID": "SYNTH-REQUEST-002"
+  },
+  {
+    "eventTime": "2026-11-26T18:11:05Z",
+    "eventSource": "s3.amazonaws.com",
+    "eventName": "PutObject",
+    "awsRegion": "ca-central-1",
+    "sourceIPAddress": "203.0.113.25",
+    "userIdentity": {
+      "type": "AssumedRole",
+      "arn": "arn:aws:sts::111122223333:assumed-role/reports-reader/reporting-job",
+      "sessionContext": {
+        "sessionIssuer": {
+          "arn": "arn:aws:iam::111122223333:role/reports-reader"
+        }
+      }
+    },
+    "requestParameters": {
+      "bucketName": "example-company-reports",
+      "key": "reports/2026/output.csv"
+    },
+    "errorCode": "AccessDenied",
+    "errorMessage": "Access Denied",
+    "eventCategory": "Data",
+    "eventID": "33333333-3333-4333-8333-333333333333",
+    "requestID": "SYNTH-REQUEST-003"
+  }
+]
+JSON
+
+python3 -m json.tool cloudtrail-events.json >/dev/null && echo "JSON valid"
+```
+
+Expected: JSON valid.
+
+### 2. Extract and correlate failures with Python 3
+
+Create and run the following script. Python's standard library means no pip installation is required.
+
+```bash
+cat > triage.py <<'PY'
+import json
+from collections import Counter
+
+with open("cloudtrail-events.json", encoding="utf-8") as f:
+    events = json.load(f)
+
+failures = [e for e in events if e.get("errorCode")]
+print(f"Loaded {len(events)} events; failures: {len(failures)}")
+
+for e in failures:
+    identity = e.get("userIdentity", {})
+    issuer = identity.get("sessionContext", {}).get("sessionIssuer", {})
+    request = e.get("requestParameters", {})
+    print(
+        e.get("eventTime"),
+        issuer.get("arn", "unknown-role"),
+        e.get("eventName"),
+        request.get("key"),
+        e.get("sourceIPAddress"),
+        e.get("errorCode"),
+        sep=" | ",
+    )
+
+print("\nFailures by assumed-role session:")
+for arn, count in Counter(
+    e.get("userIdentity", {}).get("arn", "unknown") for e in failures
+).items():
+    print(f"{count} | {arn}")
+
+print("\nEvents by category:")
+for category, count in Counter(
+    e.get("eventCategory", "unspecified") for e in events
+).items():
+    print(f"{count} | {category}")
+PY
+
+python3 triage.py
+```
+
+Expected: three events loaded, two failures, one assumed-role session with two failures, and three Data-category events.
+
+### 3. Optional jq equivalent
+
+```bash
+jq -r '.[] | select(.errorCode != null) |
+  [.eventTime,
+   .userIdentity.sessionContext.sessionIssuer.arn,
+   .eventName,
+   .requestParameters.key,
+   .sourceIPAddress,
+   .errorCode] | @tsv' cloudtrail-events.json
+```
+
+This is the Linux equivalent of the PowerShell Where-Object and Select-Object pipeline. Both workflows analyse the same fields and should identify the same two failures.
+
 ## Expected outcome and self-check
 
 You should be able to:
