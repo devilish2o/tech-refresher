@@ -20,6 +20,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 012: completed (user-reported, 2026-11-24).
 - Lesson 013: delivered (2026-11-24); completion checkpoint pending.
 - Lesson 014: delivered (2026-11-25); completion checkpoint pending.
+- Lesson 015: delivered (2026-11-26); completion checkpoint pending.
 
 ## Completed sessions
 
@@ -61,6 +62,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 012 | MATLAB: CSV telemetry validation, timetable construction and causal moving-median anomaly detection | Completed (user-reported, 2026-11-24) |
 | 013 | Apache Ant: Java 11 compilation, smoke test, WAR packaging, archive-layout verification and SHA-256 integrity check | Delivered (2026-11-24); completion pending |
 | 014 | AWS IAM policy evaluation and least-privilege S3 read access restricted to a prefix | Delivered (2026-11-25); completion pending |
+| 015 | AWS CloudTrail S3 data-event triage, assumed-role correlation and AccessDenied diagnosis | Delivered (2026-11-26); completion pending |
 
 ## Topics to revisit
 
