@@ -13,7 +13,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 - Lesson 013: delivered (2026-11-24); completion checkpoint pending.
 - Lesson 014: delivered (2026-11-25); completion checkpoint pending. AWS supplementary lesson: IAM policy evaluation; supports AWS course Lesson 017.
 - Lesson 015: delivered (2026-11-26); completion checkpoint pending. AWS supplementary lesson: CloudTrail triage; supports AWS course Lesson 022.
-- AWS foundations course: accepted by user; Lessons 016–023 planned, not yet delivered. User already has an AWS account. Start at Lesson 016 (account access, console, CLI and cost guardrails); do not ask them to create a new account.
+- AWS foundations course: accepted by user; Lesson 016 delivered (2026-11-27); completion pending user checkpoint. Lessons 017–023 remain planned. User already has an AWS account; do not ask them to create a new account.
 
 ## Completed sessions
 
@@ -56,7 +56,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 013 | Apache Ant Java WAR packaging | Delivered (2026-11-24); completion pending |
 | 014 | AWS IAM policy evaluation and least-privilege S3 access | Delivered (2026-11-25); completion pending; supplementary to AWS course Lesson 017 |
 | 015 | AWS CloudTrail S3 data-event triage and AccessDenied diagnosis | Delivered (2026-11-26); completion pending; supplementary to AWS course Lesson 022 |
-| 016 | AWS account access, console, CLI and cost guardrails | Planned — next AWS course lesson |
+| 016 | AWS account access, console, CLI and cost guardrails | Delivered (2026-11-27); completion pending user checkpoint |
 | 017 | AWS IAM administration and permissions | Planned — builds on Lesson 014 |
 | 018 | AWS VPC networking from first principles | Planned |
 | 019 | AWS EC2 Linux compute and lifecycle | Planned |
@@ -67,7 +67,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 
 ## Topics to revisit
 
-- [ ] AWS foundations course Lessons 016–023
+- [ ] AWS foundations course Lessons 016–023 (Lesson 016 delivered; completion pending)
 - [ ] Jenkins pipelines and shared libraries
 - [ ] Java WAR build and environment promotion
 - [ ] Python automation and API resilience
