@@ -33,6 +33,7 @@ Core rotation: Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automat
 - [Lesson 013 — Apache Ant Java WAR packaging](lessons/lesson-013-ant-java-war-packaging.md) — compile Java 11 code, smoke-test, package a WAR, verify its layout and generate/check a SHA-256 digest; includes an expanded Maven-versus-Ant explanation.
 - [Lesson 014 — AWS IAM policy evaluation and least-privilege S3 access](lessons/lesson-014-aws-iam-policy-evaluation.md) — draft a prefix-scoped read-only policy, validate JSON locally and simulate Allow/Deny outcomes without creating AWS resources.
 - [Lesson 015 — AWS CloudTrail incident triage](lessons/lesson-015-aws-cloudtrail-incident-triage.md) — parse synthetic S3 data events, correlate assumed-role failures and distinguish Event history from data-event logging.
+- [Lesson 016 — AWS account access, console, CLI and cost guardrails](lessons/lesson-016-aws-account-access-console-cli.md) — securely access the existing account, verify AWS CLI v2 and STS identity, and inspect billing without provisioning resources.
 
 ## Repository map
 
