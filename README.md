@@ -36,6 +36,7 @@ Core rotation: Jenkins and CI/CD; Java WAR builds with Maven/Ant; Python automat
 
 ## Repository map
 
+- [AWS Infrastructure Engineering — 8-part course (Lessons 016–023)](lessons/aws-infrastructure-course-8-part-roadmap.md) — account access through Terraform operations; Lessons 014–015 remain supplementary AWS groundwork.
 - [Learning path](curriculum/learning-path.md) — recommended sequence and outcomes, with AWS prioritised.
 - [Rotation](curriculum/rotation.md) — how subjects are revisited.
 - [Daily lesson template](templates/daily-lesson.md) — consistent 30-minute structure.
