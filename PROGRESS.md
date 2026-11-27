@@ -6,21 +6,14 @@ Update this file after each session. Keep entries brief and record concrete evid
 
 - Start date: 2026-11-12
 - Daily target: 30 minutes
-- Lesson 001: completed (user-reported).
-- Lesson 002: completed (user-reported, 2026-11-15).
-- Lesson 003: completed (user-reported, 2026-11-15).
-- Lesson 004: completed (user-reported).
-- Lesson 005: completed (user-reported, 2026-11-18).
-- Lesson 006: completed (user-reported, 2026-11-18).
-- Lesson 007: completed (user-reported, 2026-11-24).
-- Lesson 008: completed (user-reported, 2026-11-20).
-- Lesson 009: not completed; Control-M is not installed. Do not schedule another hands-on Control-M tutorial unless the user confirms an environment or explicitly requests a conceptual simulation.
-- Lesson 010: not completed; Axway SecureTransport is not installed. Do not schedule another hands-on SecureTransport tutorial unless the user confirms an environment or explicitly requests a conceptual simulation.
-- Lesson 011: completed (user-reported, 2026-11-24).
-- Lesson 012: completed (user-reported, 2026-11-24).
+- Lessons 001–008: completed (user-reported; see table below).
+- Lesson 009: not completed; Control-M is not installed. Hands-on lessons paused.
+- Lesson 010: not completed; Axway SecureTransport is not installed. Hands-on lessons paused.
+- Lessons 011–012: completed (user-reported, 2026-11-24).
 - Lesson 013: delivered (2026-11-24); completion checkpoint pending.
-- Lesson 014: delivered (2026-11-25); completion checkpoint pending.
-- Lesson 015: delivered (2026-11-26); completion checkpoint pending.
+- Lesson 014: delivered (2026-11-25); completion checkpoint pending. AWS supplementary lesson: IAM policy evaluation; supports AWS course Lesson 017.
+- Lesson 015: delivered (2026-11-26); completion checkpoint pending. AWS supplementary lesson: CloudTrail triage; supports AWS course Lesson 022.
+- AWS foundations course: accepted by user; Lessons 016–023 planned, not yet delivered. User already has an AWS account. Start at Lesson 016 (account access, console, CLI and cost guardrails); do not ask them to create a new account.
 
 ## Completed sessions
 
@@ -44,7 +37,7 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 009 | Control-M | Not completed; product not installed | Pause hands-on tutorials. Resume only if user confirms access or requests a conceptual simulation. |
 | 010 | Axway SecureTransport | Not completed; product not installed | Pause hands-on tutorials. Resume only if user confirms access or requests a conceptual simulation. |
 
-## Delivered lessons
+## Delivered and planned lessons
 
 | Lesson | Domain / topic | Status |
 |---:|---|---|
@@ -58,15 +51,23 @@ Update this file after each session. Keep entries brief and record concrete evid
 | 008 | Windows PowerShell service and Event Log incident triage | Completed (user-reported, 2026-11-20) |
 | 009 | Control-M dependency-driven batch flow | Not completed — product unavailable; hands-on tutorials paused |
 | 010 | Axway SecureTransport transfer triage | Not completed — product unavailable; hands-on tutorials paused |
-| 011 | Networking/TLS: DNS, TCP, SNI, certificate-chain and hostname verification with OpenSSL/curl | Completed (user-reported, 2026-11-24) |
-| 012 | MATLAB: CSV telemetry validation, timetable construction and causal moving-median anomaly detection | Completed (user-reported, 2026-11-24) |
-| 013 | Apache Ant: Java 11 compilation, smoke test, WAR packaging, archive-layout verification and SHA-256 integrity check | Delivered (2026-11-24); completion pending |
-| 014 | AWS IAM policy evaluation and least-privilege S3 read access restricted to a prefix | Delivered (2026-11-25); completion pending |
-| 015 | AWS CloudTrail S3 data-event triage, assumed-role correlation and AccessDenied diagnosis | Delivered (2026-11-26); completion pending |
+| 011 | Networking/TLS diagnostics | Completed (user-reported, 2026-11-24) |
+| 012 | MATLAB telemetry anomaly detection | Completed (user-reported, 2026-11-24) |
+| 013 | Apache Ant Java WAR packaging | Delivered (2026-11-24); completion pending |
+| 014 | AWS IAM policy evaluation and least-privilege S3 access | Delivered (2026-11-25); completion pending; supplementary to AWS course Lesson 017 |
+| 015 | AWS CloudTrail S3 data-event triage and AccessDenied diagnosis | Delivered (2026-11-26); completion pending; supplementary to AWS course Lesson 022 |
+| 016 | AWS account access, console, CLI and cost guardrails | Planned — next AWS course lesson |
+| 017 | AWS IAM administration and permissions | Planned — builds on Lesson 014 |
+| 018 | AWS VPC networking from first principles | Planned |
+| 019 | AWS EC2 Linux compute and lifecycle | Planned |
+| 020 | AWS storage: S3, EBS and EFS | Planned |
+| 021 | AWS application delivery: Route 53, load balancing and scaling | Planned |
+| 022 | AWS monitoring, auditing and incident troubleshooting | Planned — builds on Lesson 015 |
+| 023 | AWS Terraform and end-to-end operations | Planned |
 
 ## Topics to revisit
 
-- [ ] AWS architecture and operations: IAM, EC2, VPC, S3, RDS, ELB/ALB, Auto Scaling, CloudWatch, CloudTrail, Systems Manager, ECR and EKS
+- [ ] AWS foundations course Lessons 016–023
 - [ ] Jenkins pipelines and shared libraries
 - [ ] Java WAR build and environment promotion
 - [ ] Python automation and API resilience
@@ -80,7 +81,9 @@ Update this file after each session. Keep entries brief and record concrete evid
 
 ## Scheduling guidance
 
-- Give AWS increased weight across the rotation, not just as a one-off topic. Pair AWS labs with Terraform, IAM/security, networking, observability and CI/CD where useful.
-- Prefer free/local simulations or read-only inspection. Identify cost-bearing AWS resources and cleanup steps; do not create paid resources without explicit user approval.
+- Continue the accepted AWS foundations sequence at Lesson 016. Do not restart at account registration: the user already has an AWS account.
+- Give AWS increased weight across the rotation, pairing lessons with Terraform, IAM/security, networking, observability and CI/CD where useful.
+- Every AWS command-based lesson must include aligned PowerShell and Linux Bash commands, prerequisites, expected output and platform-specific differences.
+- Prefer free/local simulations or read-only inspection. Identify cost-bearing AWS resources and cleanup steps. Do not create paid resources without explicit user approval.
 - Do not schedule new hands-on Control-M or Axway SecureTransport tutorials while the products are unavailable. A conceptual/simulated lesson requires the user's explicit request.
 - Every daily lesson remains independently achievable in 30 minutes. Longer labs are optional and must not be created automatically from a daily lesson.
