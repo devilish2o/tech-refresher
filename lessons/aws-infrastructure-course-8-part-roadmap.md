@@ -1,138 +1,94 @@
 # AWS Infrastructure Engineering — 8-part practical course
 
-**Audience:** Senior DevOps / infrastructure engineer learning AWS from the beginning.  
+**Course mapping:** Eight consecutive daily refresher lessons, numbered **016–023** in the existing course. Existing AWS lessons 014 (IAM policy evaluation) and 015 (CloudTrail triage) remain supplementary groundwork; they are not renumbered or marked complete.
+
+**Audience:** Senior DevOps / infrastructure engineer who already has an AWS account but is new to AWS administration.  
 **Format:** Eight focused tutorials, approximately 30 minutes each.  
-**Approach:** Console walkthrough plus AWS CLI, with equivalent PowerShell and Linux Bash commands wherever commands apply.
+**Command parity:** Every applicable CLI exercise includes Windows PowerShell and Linux Bash. AWS CLI syntax is generally shared; shell syntax, paths, environment variables, JSON tools and installation differ.
 
-## Course outcome
+## Outcome
 
-By the end, build, secure, operate, monitor, troubleshoot and tear down a small AWS environment. Understand how AWS account access, IAM, VPC networking, EC2 compute, storage, load balancing, monitoring and infrastructure as code fit together.
+Build, secure, operate, monitor, troubleshoot and tear down a small AWS environment. Understand account access, IAM, VPC networking, EC2 compute, storage, application delivery, monitoring and infrastructure as code.
 
 ## Safety and cost rules
 
 - Use a dedicated learning account where possible; never experiment in an employer or production account.
-- Secure the root user with MFA and do not use it for everyday administration.
-- Prefer IAM Identity Center / temporary credentials; do not create root access keys or paste credentials into lessons, chat, scripts or Git.
-- Set a budget and billing alerts before creating billable resources. Alerts are not hard spending caps.
-- Use the smallest suitable resources, note the Region, and delete resources at the end of each lab.
-- NAT Gateways, load balancers, public IPv4 addresses, EBS volumes, snapshots, data transfer and some logging features can incur charges. Verify current pricing before enabling them.
-- Never expose SSH/RDP to the world except for a tightly controlled, temporary lab where explicitly justified; prefer Systems Manager Session Manager where supported.
-- All examples use fictional names, disposable resources and non-sensitive data.
+- Secure the root user with MFA; do not use root for everyday administration or create root access keys.
+- Prefer IAM Identity Center and temporary credentials. Never paste credentials, private keys or tokens into chat, scripts or Git.
+- Set a budget and billing alerts before provisioning. Alerts are not hard spending caps.
+- Use the smallest suitable resources, record the Region, tag resources and clean up after each lab.
+- NAT Gateways, load balancers, public IPv4 addresses, EBS volumes, snapshots, data transfer and some logging features can incur charges. Check current pricing first.
+- Prefer Systems Manager Session Manager where supported. Do not expose SSH/RDP broadly.
+- No paid resource will be created without the user's explicit approval. Use read-only inspection, local simulation or disposable labs with clear teardown where appropriate.
 
-## Tutorial 1 — AWS account, sign-in, console and cost guardrails
+## Course sequence
 
-**Objective:** Understand the AWS account boundary and safely access the Management Console and CLI.
+### Lesson 016 — AWS account access, console, CLI and cost guardrails
+**Objective:** Become comfortable navigating and safely administering the existing AWS account.
 
-Topics:
-- AWS account, Region, Availability Zone and global services.
-- Root user versus IAM Identity Center user, permission sets and IAM roles.
-- MFA, recovery details and safe administrative access.
-- AWS Management Console, service search, CloudShell and account/Region selectors.
-- Install/check AWS CLI v2; authenticate with temporary credentials; verify identity with STS.
-- Billing dashboard, Free Tier/Free Plan eligibility as applicable, AWS Budgets and cost alerts.
+Topics: root user versus IAM Identity Center identity, MFA and permission sets; console navigation, account and Region selectors, service search and CloudShell; AWS account, Region, Availability Zone and global versus regional services; AWS CLI v2 installation/checks on Windows and Linux; approved sign-in and STS identity verification; billing dashboard, budgets, alerts and cost visibility.
 
-Practical outcome: securely sign in, identify the active account and Region, run aws sts get-caller-identity, and establish a budget alert before provisioning infrastructure.
+**Practical:** Sign in using the existing account, identify account/Region, check CLI version and run aws sts get-caller-identity from PowerShell and Bash. Review billing and configure/verify a budget alert if permissions allow. No infrastructure provisioning.
 
-## Tutorial 2 — IAM administration and AWS CLI operations
+### Lesson 017 — IAM administration and permissions (builds on Lesson 014)
+**Objective:** Administer identities and permissions safely.
 
-**Objective:** Grant a human and a workload only the permissions each needs.
+Topics: IAM users, groups, roles, trust and permission policies; identity-based versus resource-based policies; managed versus inline policies; least privilege, explicit deny, permission boundaries and SCPs; STS temporary credentials, IAM Identity Center profiles and role assumption; Policy Simulator and IAM Access Analyzer.
 
-Topics:
-- Users, groups, roles, trust policies, identity policies and resource policies.
-- Managed versus customer-managed policies; policy evaluation and explicit deny.
-- AssumeRole and STS temporary credentials.
-- IAM Access Analyzer and policy simulator.
-- AWS CLI profiles and IAM Identity Center SSO.
+**Practical:** Inspect the current identity and existing access safely; validate the prefix-scoped S3 policy from Lesson 014 using a simulator or offline test matrix. Do not grant administrator access or create long-lived keys.
 
-Practical outcome: create a narrowly scoped read-only role/policy for a lab resource, test allowed and denied actions, and use the same identity from the console and CLI.
+### Lesson 018 — VPC networking from first principles
+**Objective:** Understand and design AWS network connectivity.
 
-## Tutorial 3 — VPC networking from first principles
+Topics: VPC CIDR and subnet sizing; public/private subnets across Availability Zones; route tables, local routes, Internet Gateway and NAT Gateway; Security Groups (stateful) versus Network ACLs (stateless); DNS attributes, VPC endpoints and Flow Logs; packet path reasoning.
 
-**Objective:** Build and troubleshoot an isolated AWS network.
+**Practical:** Inspect existing VPCs, subnets, routes and security groups in console and AWS CLI. Draw a two-AZ public/private design and verify route decisions. No paid NAT Gateway creation.
 
-Topics:
-- VPC CIDR, subnet sizing, public and private subnets across Availability Zones.
-- Route tables, local routes, Internet Gateway and NAT Gateway (including cost implications).
-- Security Groups (stateful) versus Network ACLs (stateless).
-- DNS settings, VPC endpoints and VPC Flow Logs.
-- Trace a packet path and diagnose routing versus firewall failures.
+### Lesson 019 — EC2: create and operate a Linux cloud server
+**Objective:** Provision, connect to, maintain and remove a virtual machine safely.
 
-Practical outcome: create a small VPC with public/private subnet design, inspect routes and security rules, and verify expected reachability without exposing private resources.
+Topics: EC2 instances, AMIs, instance families/sizes and launch templates; EBS root/data volumes, snapshots, user data and instance metadata; subnet placement, security groups and addressing; SSH versus Systems Manager Session Manager and instance profiles; instance lifecycle, status checks, stop/start versus terminate and tagging.
 
-## Tutorial 4 — EC2 compute: create and operate a cloud server
+**Practical:** Inspect EC2 inventory and pricing first. With explicit approval, launch a smallest-suitable disposable instance using a restricted security group and supported connection method; install a simple web service, validate it, then terminate and verify cleanup. Otherwise complete a console/CLI dry-run and local simulation.
 
-**Objective:** Provision, connect to, maintain and safely remove a Linux virtual machine.
+### Lesson 020 — AWS storage: S3, EBS and EFS
+**Objective:** Select and operate the appropriate AWS storage model.
 
-Topics:
-- EC2 instances, AMIs, instance families/sizes, tenancy and key pairs.
-- EBS root/data volumes, snapshots, user data and instance metadata.
-- Security Groups and subnet placement.
-- SSH versus Systems Manager Session Manager.
-- Instance states, stop/start versus terminate, status checks and recovery.
-- Tags and basic operational inventory.
+Topics: S3 buckets/objects/prefixes, Block Public Access, bucket policies and encryption; versioning, lifecycle and storage classes; EBS block volumes and snapshots versus EFS shared filesystems versus S3 object storage; backup/restore, retention, data protection and cost; AWS CLI object operations and safe deletion.
 
-Practical outcome: launch a small disposable Linux EC2 instance, connect safely, install a simple service, validate it, then terminate it and verify associated resources are cleaned up.
+**Practical:** Inspect storage configuration, then use a private disposable S3 bucket only with approval; upload/download a synthetic file, test access, version/restore and remove the bucket. Explain EBS/EFS trade-offs.
 
-## Tutorial 5 — AWS storage and data services
+### Lesson 021 — Application delivery: DNS, load balancing and scaling
+**Objective:** Understand how an application is exposed and made resilient.
 
-**Objective:** Select and operate the right AWS storage type.
+Topics: Route 53 hosted zones and records; Elastic Load Balancing (ALB versus NLB), listeners, target groups and health checks; TLS termination and certificate management; launch templates and Auto Scaling Groups; multi-AZ design, public/private application tiers and outbound access; availability, resilience and cost trade-offs.
 
-Topics:
-- S3 buckets, objects, prefixes, versioning, lifecycle and storage classes.
-- Bucket policies, Block Public Access, encryption and access logging.
-- EBS block storage versus EFS shared file storage versus S3 object storage.
-- Snapshots, backup and restore considerations.
-- AWS CLI object operations and safe deletion.
+**Practical:** Trace a request through DNS → load balancer → target → application. Inspect existing resources or use an architecture/local simulation. Provision a load balancer only with explicit cost approval and teardown plan.
 
-Practical outcome: create a private S3 bucket, upload/download a sample file, test access controls, enable versioning, restore an earlier object version, and remove the lab bucket safely.
+### Lesson 022 — Monitoring, auditing and incident troubleshooting (builds on Lesson 015)
+**Objective:** Operate AWS workloads using telemetry and audit evidence.
 
-## Tutorial 6 — Cloud networking services and application delivery
+Topics: CloudWatch metrics, alarms, dashboards, Logs and Logs Insights; CloudTrail management events versus data events and Event history limitations; VPC Flow Logs, EC2 status checks and AWS Config overview; correlate UTC timestamps, event IDs, request IDs, identities and resource IDs; diagnose CPU, disk, network, health-check and AccessDenied incidents; cost and operational alerting.
 
-**Objective:** Expose an application safely and understand highly available AWS network patterns.
+**Practical:** Analyse synthetic CloudTrail/CloudWatch records and, if available, inspect read-only account telemetry. Explain why S3 data events require explicit configuration and can incur charges.
 
-Topics:
-- Route 53 hosted zones and DNS records.
-- Elastic Load Balancing: Application Load Balancer versus Network Load Balancer.
-- Target groups, health checks, listeners and TLS termination.
-- Auto Scaling Groups and launch templates.
-- Public/private application tiers and outbound connectivity choices.
-- Architecture trade-offs, resilience and cost.
+### Lesson 023 — Terraform and end-to-end AWS operations
+**Objective:** Reproduce a small AWS environment predictably and safely.
 
-Practical outcome: deploy a simple disposable web service behind a load balancer or use a local/design simulation if cost controls make provisioning inappropriate; test health checks and explain failover behaviour.
+Topics: Terraform AWS provider, authentication, variables, outputs and state; init/fmt/validate/plan/apply/refresh/destroy; state sensitivity, locking and remote backend concepts; modules, tags, environment separation and drift; CI/CD integration, change review, validation and rollback; cost review, teardown and handover.
 
-## Tutorial 7 — Monitoring, logging, auditing and troubleshooting
+**Practical:** Start with local Terraform validation/plan. Provision a minimal AWS resource set only with explicit approval; review plan, apply, validate, make a controlled change, then destroy and verify. Never commit state or secrets.
 
-**Objective:** Operate an AWS workload using evidence rather than guesswork.
+## PowerShell and Linux Bash parity
 
-Topics:
-- CloudWatch metrics, dashboards, alarms and Logs.
-- CloudTrail management events versus data events.
-- VPC Flow Logs and EC2 status checks.
-- AWS Config overview and configuration drift.
-- CloudWatch Logs Insights basics.
-- Correlate timestamps, request IDs, identities and resource IDs.
-- Diagnose CPU, disk, network, health-check and AccessDenied incidents.
+For every command-based lesson:
+- Show PowerShell and Bash equivalents side by side or in clearly labelled sections.
+- Keep AWS CLI arguments and expected AWS-side results equivalent.
+- Show platform-specific AWS CLI v2 installation/checks, shell quoting, paths and environment variables.
+- Use ConvertFrom-Json/PowerShell objects on Windows and jq or Python on Linux where appropriate.
+- State prerequisites and verify tool availability; do not assume jq, Python or AWS CLI is installed.
+- Identify console-only tasks honestly; do not invent a CLI equivalent.
 
-Practical outcome: create a metric alarm or log filter, inspect a CloudTrail event, and work through a synthetic incident using timestamps and resource identifiers.
+## Progress rules
 
-## Tutorial 8 — Infrastructure as Code and end-to-end operations
-
-**Objective:** Reproduce a small AWS environment predictably and tear it down safely.
-
-Topics:
-- Terraform AWS provider, authentication, variables, outputs and state.
-- Plan/apply/destroy lifecycle; state security and remote-state concepts.
-- Reusable modules, tagging and environment separation.
-- Drift detection and change review.
-- CI/CD integration concepts and deployment rollback.
-- Cost review, cleanup verification and operational handover.
-
-Practical outcome: use Terraform to provision a minimal, tagged lab network/resource set, inspect the plan, apply, validate, make a controlled change, and destroy the environment. No secrets in source control or state files.
-
-## Command parity requirement
-
-Every AWS lesson must provide aligned examples for PowerShell and Linux Bash. AWS CLI commands are generally identical across operating systems; shell quoting, paths, environment variables, JSON processing and installation steps differ and must be shown separately. State prerequisites and expected output. Do not assume tools are installed.
-
-## Progress tracking
-
-Record each tutorial as Not started, Delivered, or Completed. A tutorial is only Completed after the learner reports the checkpoint. The previous standalone AWS IAM and CloudTrail lessons (014 and 015) are useful supplementary material; this eight-part course deliberately starts with account access and foundational AWS operations.
+The eight course lessons are **016–023**. Existing lessons **014 (IAM)** and **015 (CloudTrail)** are retained as supplementary AWS lessons and linked to Lessons 017 and 022 respectively. Their completion remains pending until the learner reports completion. Mark each new lesson Delivered when taught and Completed only after the learner reports its checkpoint.
